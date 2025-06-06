@@ -1,0 +1,11 @@
+creditonebank:
+  root_url: https://www.creditonebank.com/
+  given_urls:
+    - https://www.creditonebank.com/content/dam/creditonebank/corporate-transactional/pdf/credit-protection-agreement.pdf
+    - https://www.creditonebank.com/info/credit-protection-agreement
+  _valid_urls:
+    - 
+  _result_urls:
+    - 
+  _error_urls:
+    - 

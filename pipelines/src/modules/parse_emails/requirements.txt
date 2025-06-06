@@ -1,0 +1,9 @@
+olefile
+datetime 
+chardet 
+pytest 
+python-magic 
+compressed_rtf 
+RTFDE 
+pypandoc 
+pyopenssl 

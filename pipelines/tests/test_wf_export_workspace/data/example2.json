@@ -1,0 +1,28 @@
+{
+    "filepath":"tests/test_wf_export_workspace/data/example2.json",
+    "sentDateTime":"2024-02-01",
+    "hasAttachments":false,
+    "subject":"This is the subject of the second example",
+    "sender":{
+        "emailAddress":{
+            "name": "Last, First",
+            "address": "first.last@domain.com"
+        }
+    },
+    "from":{
+        "emailAddress":{
+            "name": "Last, First",
+            "address": "first.last@domain.com"
+        }
+    },
+    "toRecipients":[{
+        "emailAddress":{
+            "name": "Last, First",
+            "address": "first.last@domain.com"
+        }
+    }],
+    "ccRecipients":[],
+    "contents":{
+        "body":"First Last,\n This is a second email message.\n Respectfully, First Last"
+    }
+}

@@ -1,0 +1,2263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="grammar/rash.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<!DOCTYPE html>
+<!-- 
+Research Articles in Simplified HTML: a Web-first format for HTML-based scholarly articles
+by Silvio Peroni, Francesco Osborne, Angelo Di Iorio, Andrea Giovanni Nuzzolese, Francesco Poggi, Fabio Vitali, Enrico Motta
+
+This work is licensed under a Creative Commons Attribution 4.0 International License (http://creativecommons.org/licenses/by/4.0/).
+You are free to:
+* Share - copy and redistribute the material in any medium or format
+* Adapt - remix, transform, and build upon the material
+for any purpose, even commercially.
+
+The licensor cannot revoke these freedoms as long as you follow the license terms.
+
+Under the following terms:
+* Attribution - You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
+-->
+<html 
+    xmlns="http://www.w3.org/1999/xhtml" 
+    prefix="
+        sd: https://w3id.org/scholarlydata/person/
+        fabio: http://purl.org/spar/fabio/
+        cito: http://purl.org/spar/cito/
+        pro: http://purl.org/spar/pro/
+        schema: http://schema.org/
+        prism: http://prismstandard.org/namespaces/basic/2.0/
+        frbr: http://purl.org/vocab/frbr/core#
+        dcterms: http://purl.org/dc/terms/">
+    <head>
+        <!-- Visualisation requirements (mandatory for optimal reading) -->
+        <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+        <link rel="stylesheet" href="css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="css/rash.css"/>
+
+        <script src="js/jquery.min.js"> </script>
+        <script src="js/bootstrap.min.js"> </script>
+        <script src="js/rash.js"> </script>
+        <!-- /END Visualisation requirements (mandatory for optimal reading) -->
+
+        <!-- Metadata -->
+        <title property="dcterms:title" typeof="fabio:JournalArticle">Research Articles in Simplified HTML: a Web-first format for HTML-based scholarly articles</title>
+
+        <!-- Author's data (one or more) -->
+        <meta about="sd:silvio-peroni" typeof="schema:Person" name="dc.creator" property="schema:name" content="Silvio Peroni"/>
+        <meta about="sd:silvio-peroni" property="schema:email" content="silvio.peroni@unibo.it"/>
+        <link about="sd:silvio-peroni" property="schema:affiliation" href="https://w3id.org/scholarlydata/organisation/university-of-bologna"/>
+
+        <meta about="sd:francesco-osborne" typeof="schema:Person" name="dc.creator" property="schema:name" content="Francesco Osborne"/>
+        <meta about="sd:francesco-osborne" property="schema:email" content="francesco.osborne@open.ac.uk"/>
+        <link about="sd:francesco-osborne" property="schema:affiliation" href="https://w3id.org/scholarlydata/organisation/kmi-the-open-university-uk"/>
+        
+        <meta about="sd:angelo-di-iorio" typeof="schema:Person" name="dc.creator" property="schema:name" content="Angelo Di Iorio"/>
+        <meta about="sd:angelo-di-iorio" property="schema:email" content="angelo.diiorio@unibo.it"/>
+        <link about="sd:angelo-di-iorio" property="schema:affiliation" href="https://w3id.org/scholarlydata/organisation/university-of-bologna"/>
+
+        <meta about="sd:andrea-nuzzolese" typeof="schema:Person" name="dc.creator" property="schema:name" content="Andrea Giovanni Nuzzolese"/>
+        <meta about="sd:andrea-nuzzolese" property="schema:email" content="andrea.nuzzolese@istc.cnr.it"/>
+        <link about="sd:andrea-nuzzolese" property="schema:affiliation" href="https://w3id.org/scholarlydata/organisation/stlab-cnr"/>
+
+        <meta about="sd:francesco-poggi" typeof="schema:Person" name="dc.creator" property="schema:name" content="Francesco Poggi"/>
+        <meta about="sd:francesco-poggi" property="schema:email" content="francesco.poggi5@unibo.it"/>
+        <link about="sd:francesco-poggi" property="schema:affiliation" href="https://w3id.org/scholarlydata/organisation/university-of-bologna"/>
+
+        <meta about="sd:fabio-vitali" typeof="schema:Person" name="dc.creator" property="schema:name" content="Fabio Vitali"/>
+        <meta about="sd:fabio-vitali" property="schema:email" content="fabio.vitali@unibo.it"/>
+        <link about="sd:fabio-vitali" property="schema:affiliation" href="https://w3id.org/scholarlydata/organisation/university-of-bologna"/>
+            
+        <meta about="sd:enrico-motta" typeof="schema:Person" name="dc.creator" property="schema:name" content="Enrico Motta"/>
+        <meta about="sd:enrico-motta" property="schema:email" content="enrico.motta@open.ac.uk"/>
+        <link about="sd:enrico-motta" property="schema:affiliation" href="https://w3id.org/scholarlydata/organisation/kmi-the-open-university-uk"/>
+
+        <!-- Affiliations -->
+        <meta about="https://w3id.org/scholarlydata/organisation/university-of-bologna" property="schema:name" typeof="schema:Organization" content="Digital And Semantic Publishing Laboratory, Department of Computer Science and Engineering, University of Bologna, Bologna, Italy"/>
+        <meta about="https://w3id.org/scholarlydata/organisation/kmi-the-open-university-uk" property="schema:name" typeof="schema:Organization" content="Knowledge Media Institute, The Open University, Milton Keynes, United Kingdom"/>
+        <meta about="https://w3id.org/scholarlydata/organisation/stlab-cnr" property="schema:name" typeof="schema:Organization" content="Semantic Technologies Laboratory, Institute of Cognitive Science and Technologies, Italian National Research Council, Rome, Italy"/>
+
+        <!-- Paper keywords (one or more) -->
+        <meta property="prism:keyword" content="RASH"/>
+        <meta property="prism:keyword" content="Semantic Publishing"/>
+        <meta property="prism:keyword" content="document conversion"/>
+        <meta property="prism:keyword" content="XSLT"/>
+        <meta property="prism:keyword" content="Semantic Web"/>
+        <meta property="prism:keyword" content="Digital Publishing"/>
+        <!-- /END Metadata -->
+    </head>
+    <body>
+        <!-- Abstract -->
+        <section role="doc-abstract">
+            <h1>Abstract</h1>
+            <p><em>Purpose:</em> this paper introduces the <em>Research Articles in Simplified
+                    HTML</em> (or <em>RASH</em>), which is a Web-first format for writing HTML-based
+                scholarly papers; it is accompanied by the <em>RASH Framework</em>, a set of tools
+                for interacting with RASH-based articles. The paper also presents an evaluation that
+                involved authors and reviewers of RASH articles submitted to the <a href="http://cs.unibo.it/save-sd/2015/index.html">SAVE-SD 2015</a> and <a href="http://cs.unibo.it/save-sd/2015/index.html">SAVE-SD 2016</a>
+                workshops.</p>
+            <p><em>Design:</em> RASH has been developed aiming to: be easy to learn and use; share
+                scholarly documents (and embedded semantic annotations) through the Web; support its
+                adoption within the existing publishing workflow </p>
+            <p><em>Findings</em>: the evaluation study confirmed that RASH is ready to be be adopted in
+                workshops, conferences, and journals and can be quickly learnt by researchers who are
+                familiar with HTML.</p>
+            <p><em>Research limitations:</em> the evaluation study also highlighted some issues in
+                the adoption of RASH, and in general of HTML formats, especially by less technically 
+                savvy users. Moreover, additional tools are needed, e.g. for enabling additional
+                conversions from/to existing formats such as OpenXML.</p>
+            <p><em>Practical implications:</em> RASH (and its Framework) is another step towards
+                enabling the definition of formal representations of the meaning of the content of
+                an article, facilitating its automatic discovery, enabling its linking to semantically
+                related articles, providing access to data within the article in actionable form, and
+                allowing integration of data between papers.</p>
+            <p><em>Social implications:</em> RASH addresses the intrinsic needs related to the
+                various users of a scholarly article: researchers (focussing on its content),
+                readers (experiencing new ways for browsing it), citizen scientists (reusing
+                available data formally defined within it through semantic annotations), publishers
+                (using the advantages of new technologies as envisioned by the Semantic Publishing
+                movement).</p>
+            <p><em>Value:</em> RASH helps authors to focus on the
+                organisation of their texts, supports them in the task
+                of semantically enriching the content of articles, and leaves all the issues about 
+                validation, visualisation, conversion, and semantic data extraction to the various
+                tools developed within its Framework.</p>
+            <p><strong>Notes:</strong> revision submitted to <a href="https://peerj.com/computer-science/">PeerJ Computer Science</a>.</p>
+            <p><strong>This version:</strong> <a href="https://w3id.org/people/essepuntato/papers/rash-peerj2016/2017-07-06.html">https://w3id.org/people/essepuntato/papers/rash-peerj2016/2017-07-06.html</a></p>
+            <p><strong>Last version:</strong> <a href="https://w3id.org/people/essepuntato/papers/rash-peerj2016.html">https://w3id.org/people/essepuntato/papers/rash-peerj2016.html</a></p>
+        </section>
+
+        <!-- Sections -->
+        <section id="sec_introduction">
+            <h1>Introduction</h1>
+            <p>In the last months of 2014, several posts within technical mailing lists of the <a href="https://lists.w3.org/Archives/Public/public-lod/2014Nov/0003.html">Web</a>
+                and <a href="https://lists.w3.org/Archives/Public/public-lod/2014Oct/0058.html">Semantic Web</a> community have discussed an evergreen topic in scholarly
+                communication, i.e., how could authors of research papers could submit their works in HTML
+                rather than, say, PDF, MS Word or LaTeX. Besides the obvious justification of
+                simplification and unification of data formats for drafting, submission and
+                publication, an additional underlying rationale is that the adoption of HTML would
+                ease the embedding of semantic annotations, thus improving research communications thanks to already existing W3C standards such
+                as RDFa <a href="#rdfa"> </a>, Turtle <a href="#turtle"> </a> and JSON-LD <a href="#jsonld"> </a>. 
+                This opens complex and exciting scenarios that the Semantic
+                Publishing community has promised us in terms of increased discoverability,
+                interactivity, openness and usability of the scientific works<a href="#force11"> </a>
+                <a href="#shotton-sempub"> </a>.</p>
+            <p>Nonetheless, HTML is still primarily used as an output format only: the authors write
+                their papers in LaTeX or MS Word and submit sources to the typesetters, who are
+                responsible for producing the final version, that eventually will be published and read
+                on the Web. Appropriate tools in the publishing toolchain are used to convert papers
+                among multiple formats. </p>
+            <p>The interest in <em>Web-first research papers</em> - that are natively designed,
+                stored and transferred in HTML - is increasing. Just to cite a few research efforts:
+                    <a href="http://scholarlyhtml.org">Scholarly HTML</a> defines a set of
+                descriptive rules for adopting a defined subset of HTML to describe the metadata and
+                content of scholarly articles; <a href="http://dokie.li">Dokieli</a> is a Web
+                application that allows authors to create HTML-based scholarly articles directly on
+                the browser, adding annotations and many other sophisticated features.</p>
+
+            <p>This paper introduces a novel approach towards the same goal: providing authors with
+                a subset of HTML for Web-first papers. The format is called RASH,
+                    <em>Research Articles in Simplified HTML</em>, and consists of 32
+                HTML elements only. This format is also accompanied by the <em>RASH Framework</em>,
+                a set of specifications and tools for RASH documents <a href="#rash-release"> </a>.</p>
+
+            <p>There are two key differences between RASH and other similar proposals. First of all,
+                RASH adopts a <em>simplified pattern-based data model</em>. The number of markup
+                elements to be used by authors was reduced down to the bare minimum, and the
+                elements themselves were chosen in order to minimize the cognitive effort of authors
+                when writing documents. Secondly, RASH does not come with a full authoring
+                environment but is expected to be produced from MS Word, ODT and LaTeX sources. The
+                basic idea is to allow authors to keep using the word processors on which they routinely write their papers and to provide them with multi-format converters. These converters are included in
+                the RASH Framework, whose architecture is modular and extensible for handling new
+                formats in the future.</p>
+            <p>
+                RASH is in fact intended to help authors in focussing on the
+                organisation of their texts and supports them in the task
+                of semantically enriching the content of articles, delegating all the issues about
+                validation/presentation/conversion of RASH documents to the various tools developed
+                within its Framework. This is a well-known principle in scientific publishing, even if not yet fully applied:
+                    <em>clear separation of concerns</em>. The authors should focus on organising the
+                content and structure only, and the format should not require authors to worry about
+                how the content will be presented on screen and in print. The publishers will then take care
+                of creating the final formatting to best render the content in the style of their
+                publications, or authors could use self-publishing platforms as promoted by <a href="http://linkedresearch.org">Linked Research</a>. 
+                
+                
+                Such a separation of concerns can be pushed much forward.
+			Pettifer et al.<a href="#pettifer-sempub"> </a>
+			explained well the difference between an article as <q>an instance of scholarly thought</q> and <q>a representation for consumption by human or machine</q>,
+            and showed how multiple representations can be combined, integrated with external data, enhanced and interacted with in order to provide scholars with sophisticated tools 
+            directly within their articles.
+            </p>
+            <p>Another critical requirement for any HTML-based language used
+                for scientific writing is <em>good rendering and acceptance by the publishers</em>.
+                Any new HTML-based format should be beneficial for publishers as well. Of course,
+                publishers, conferences, and workshop organisers, would like to manage new formats in
+                the same way as for the formats they already support, such as LaTeX. To this end, these formats should support tools for their conversion and for rendering the content in specific layouts, such as <a href="http://www.acm.org/sigs/publications/proceedings-templates">ACM ICPS</a>
+                and <a href="http://www.springer.com/computer/lncs?SGWID=0-164-6-793341-0">Springer
+                    LNCS</a>. RASH adopts a <em>pragmatic approach</em> to this issue: while
+                we are interested in a full-fledged native RASH authoring environment, we
+                implemented a set of converters, in the RASH Framework, that are easily integrable
+                (and were integrated) with existing publishing platforms.</p>
+
+            <p>The goal of this paper is, in fact, to describe the outcomes of some experimentations
+                on the use of RASH, so as to understand:</p>
+            <ol>
+                <li>
+                    <p>if it can be adopted as HTML-based submission format in academic venues
+                        (workshops, conferences, journals);</p>
+                </li>
+                <li>
+                    <p>if it is easy to learn and use;</p>
+                </li>
+                <li>
+                    <p>if it can be used to add semantic annotations and what are the
+                        most widely adopted vocabularies in RASH
+                        papers;</p>
+                </li>
+            </ol>
+            <p>The rest of the paper is structured as follows. In <a href="#sec_related_works"> </a>
+                we introduce some of the most relevant related works in the area, providing a
+                functional comparison of the various works. In <a href="#sec_rationale"> </a> we
+                introduce the rationale for the creation of a new Web-first format for scholarly
+                publications, discussing the importance of <em>minimality</em>. In <a href="#sec_rash"> </a> and <a href="#sec_rash_framework"> </a> we introduce the
+                theoretical background of RASH, and then provide an introduction to the language and
+                the main tools included in its Framework. In <a href="#sec_evaluation"> </a> we present, as a case study, an analysis of the adoption of RASH at the <a href="http://cs.unibo.it/save-sd/2015/index.html">SAVE-SD 2015</a> and <a href="http://cs.unibo.it/save-sd/2016/index.html">SAVE-SD 2016</a> workshops.
+                Finally, in <a href="#sec_conclusions"> </a> we conclude the paper by sketching out some
+                future developments.</p>
+        </section>
+
+        <section id="sec_related_works">
+            <h1>Related works</h1>
+            <p>The growing interest in the publication of Web-first research papers has resulted in
+                the release of some interesting projects related to RASH. In the following
+                subsections, we discuss all the most important contributions in this area by
+                splitting them into two main categories: (i) HTML-based formats and (ii) WYSIWYG
+                editors for HTML documents.</p>
+            <p>Note that we do not discuss in detail some other efforts that have recently been done by
+                means of non-HTML languages, even if they are equally relevant for the community. <a href="http://scholarlymarkdown.com/">ScholarlyMarkdown</a>
+                <a href="#scholmd"> </a>, for instance, is a syntax to produce scholarly articles
+                according to a <a href="http://daringfireball.net/projects/markdown/">Markdown</a>
+                input. <a href="https://www.sharelatex.com/">ShareLaTeX</a> is a Web-based real-time
+                collaborative editor for LaTeX documents.</p>
+
+            <p>In <a href="#table_comparison"> </a> we briefly summarise the features and
+                capabilities of the formats presented, in order to highlight the main differences
+                between them.</p>
+            <figure id="table_comparison">
+                <table>
+                    <tr>
+                        <th>Format</th>
+                        <th>Syntax</th>
+                        <th>Documentation</th>
+                        <th>Formal grammar</th>
+                        <th>Semantic annotations</th>
+                        <th>CSS for different formats</th>
+                        <th>WYSIWYG editor</th>
+                        <th>Conversion from</th>
+                        <th>Conversion to</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>
+                                <a href="https://github.com/essepuntato/rash/">RASH</a>
+                            </p>
+                        </td>
+                        <td>
+                            <p>HTML</p>
+                        </td>
+                        <td>
+                            <p>
+                                <a href="http://cs.unibo.it/save-sd/rash">Available online</a>
+                            </p>
+                        </td>
+                        <td>
+                            <p>
+                                <a href="https://raw.githubusercontent.com/essepuntato/rash/master/grammar/rash.rng">RelaxNG</a>
+                            </p>
+                        </td>
+                        <td>
+                            <p>RDFa, RDF/XML, Turtle, JSON-LD</p>
+                        </td>
+                        <td>
+                            <p>Web-based and Springer LNCS</p>
+                        </td>
+                        <td>
+                            <p>Apache OpenOffice, Microsoft Word, RASH Javascript Editor (RAJE)</p>
+                        </td>
+                        <td>
+                            <p>ODT, DOCX</p>
+                        </td>
+                        <td>
+                            <p>LaTeX: ACM ICPS, ACM Journal Large, PeerJ CS, Springer LNCS</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>
+                                <a href="http://scholarlyhtml.org/">Scholarly HTML (2011)</a>
+                            </p>
+                        </td>
+                        <td>
+                            <p>HTML</p>
+                        </td>
+                        <td>
+                            <p>
+                                <a href="http://scholarlyhtml.org/core-specification/">Available
+                                    online</a>
+                            </p>
+                        </td>
+                        <td>
+                            <p>None</p>
+                        </td>
+                        <td>
+                            <p>RDFa</p>
+                        </td>
+                        <td>
+                            <p>None</p>
+                        </td>
+                        <td>
+                            <p>None</p>
+                        </td>
+                        <td>
+                            <p>PDF (via <a href="https://github.com/ContentMine/norma">ContentMine - Norma</a>)</p>
+                        </td>
+                        <td>
+                            <p>None</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>
+                                <a href="https://github.com/thomaspark/pubcss/">PubCSS</a>
+                            </p>
+                        </td>
+                        <td>
+                            <p>HTML</p>
+                        </td>
+                        <td>
+                            <p>
+                                <a href="http://thomaspark.co/2015/01/pubcss-formatting-academic-publications-in-html-css/">Available online</a>
+                            </p>
+                        </td>
+                        <td>
+                            <p>Informal (via HTML templates)</p>
+                        </td>
+                        <td>
+                            <p>None</p>
+                        </td>
+                        <td>
+                            <p>ACM SIG Proceedings, ACM SIGCHI Proceedings, ACM SIGCHI Extended
+                                Abstracts, and IEEE Conference Proceedings</p>
+                        </td>
+                        <td>
+                            <p>None</p>
+                        </td>
+                        <td>
+                            <p>None</p>
+                        </td>
+                        <td>
+                            <p>PDF (via browser interface)</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>
+                                <a href="https://github.com/oreillymedia/HTMLBook/">HTMLBooks</a>
+                            </p>
+                        </td>
+                        <td>
+                            <p>HTML</p>
+                        </td>
+                        <td>
+                            <p>
+                                <a href="http://oreillymedia.github.io/HTMLBook/">Available
+                                    online</a>
+                            </p>
+                        </td>
+                        <td>
+                            <p>
+                                <a href="https://raw.githubusercontent.com/oreillymedia/HTMLBook/master/schema/htmlbook.xsd">XML Schema</a>
+                            </p>
+                        </td>
+                        <td>
+                            <p>None</p>
+                        </td>
+                        <td>
+                            <p>CSS files for PDF printing and EPUB/MOBI-compatible device
+                                visualisations</p>
+                        </td>
+                        <td>
+                            <p>None</p>
+                        </td>
+                        <td>
+                            <p>None</p>
+                        </td>
+                        <td>
+                            <p>None</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>
+                                <a href="https://github.com/scienceai/scholarly.vernacular.io">Scholarly HTML (2015)</a>
+                            </p>
+                        </td>
+                        <td>
+                            <p>HTML</p>
+                        </td>
+                        <td>
+                            <p>
+                                <a href="http://scholarly.vernacular.io/">Available online</a>
+                            </p>
+                        </td>
+                        <td>
+                            <p>None</p>
+                        </td>
+                        <td>
+                            <p>RDFa, JSON-LD</p>
+                        </td>
+                        <td>
+                            <p>Web-based</p>
+                        </td>
+                        <td>
+                            <p>Microsoft Word (<a href="https://science.ai/overview">as referenced
+                                    online</a>) and their online platform (no access for free guaranted as of 20 June 2017)</p>
+                        </td>
+                        <td>
+                            <p>DOCX</p>
+                        </td>
+                        <td>
+                            <p>None</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>
+                                <a href="https://github.com/w3c/scholarly-html">Scholarly HTML
+                                    (2016)</a>
+                            </p>
+                        </td>
+                        <td>
+                            <p>HTML</p>
+                        </td>
+                        <td>
+                            <p>
+                                <a href="https://w3c.github.io/scholarly-html/">Available online</a>
+                            </p>
+                        </td>
+                        <td>
+                            <p>None</p>
+                        </td>
+                        <td>
+                            <p>RDFa, JSON-LD</p>
+                        </td>
+                        <td>
+                            <p>Web-based</p>
+                        </td>
+                        <td>
+                            <p>None</p>
+                        </td>
+                        <td>
+                            <p>None</p>
+                        </td>
+                        <td>
+                            <p>None</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>dokieli format</p>
+                        </td>
+                        <td>
+                            <p>HTML</p>
+                        </td>
+                        <td>
+                            <p>None</p>
+                        </td>
+                        <td>
+                            <p>Informal (via HTML templates)</p>
+                        </td>
+                        <td>
+                            <p>RDFa, Turtle, JSON-LD, TRiG</p>
+                        </td>
+                        <td>
+                            <p>Web-based (Native and Basic), Springer LNCS, ACM ICPS</p>
+                        </td>
+                        <td>
+                            <p>
+                                <a href="http://dokie.li">dokieli</a>
+                            </p>
+                        </td>
+                        <td>
+                            <p>None</p>
+                        </td>
+                        <td>
+                            <p>PDF (via browser interface)</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Fiduswriter format</p>
+                        </td>
+                        <td>
+                            <p>HTML</p>
+                        </td>
+                        <td>
+                            <p>None</p>
+                        </td>
+                        <td>
+                            <p>None</p>
+                        </td>
+                        <td>
+                            <p>None</p>
+                        </td>
+                        <td>
+                            <p>Web-based</p>
+                        </td>
+                        <td>
+                            <p>
+                                <a href="https://www.fiduswriter.org">Fiduswriter</a>
+                            </p>
+                        </td>
+                        <td>
+                            <p>None</p>
+                        </td>
+                        <td>
+                            <p>HTML, EPUB, LaTeX</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Authorea format</p>
+                        </td>
+                        <td>
+                            <p>HTML</p>
+                        </td>
+                        <td>
+                            <p>None</p>
+                        </td>
+                        <td>
+                            <p>None</p>
+                        </td>
+                        <td>
+                            <p>None</p>
+                        </td>
+                        <td>
+                            <p>Web-based</p>
+                        </td>
+                        <td>
+                            <p>
+                                <a href="https://www.authorea.com">Authorea</a>
+                            </p>
+                        </td>
+                        <td>
+                            <p>DOCX, LaTeX</p>
+                        </td>
+                        <td>
+                            <p>DOCX, LaTeX (according to several stylesheets), PDF, Zipped structure with HTML</p>
+                        </td>
+                    </tr>
+                </table>
+                <figcaption>A comparison among existing HTML-oriented formats for scholarly papers according to seven distinct categories.</figcaption>
+            </figure>
+            <section>
+                <h1>HTML-based formats</h1>
+                <p>One of the first documented contributions that proposed an HTML-based format
+                    for scholarly articles was <a href="http://scholarlyhtml.org">Scholarly
+                        HTML</a>. It is not defined as a formal grammar, but as a set of
+                    descriptive rules which allows one to specify just a reduced amount of HTML tags
+                    for describing the metadata and content of a scholarly article. It is the main
+                    intermediate format used in <a href="http://contentmine.org">ContentMine</a> for
+                    describing the conversion of PDF content into HTML.</p>
+                <p>Along the same lines, <a href="https://github.com/thomaspark/pubcss/">PubCSS</a>
+                    is a project which aims at pushing the use of HTML+CSS for writing scholarly
+                    articles. It does not define a formal grammar for the HTML element set to use.
+                    Rather it provides some HTML templates according to four different CSS styles,
+                    which mimic four LaTeX styles for Computer Science articles, i.e.
+                    ACM SIG Proceedings, ACM SIGCHI Proceedings, ACM SIGCHI Extended Abstracts, and
+                    IEEE Conference Proceedings.</p>
+                <p><a href="https://github.com/oreillymedia/HTMLBook/">HTMLBooks</a> is an
+                    O'Reilly's specification for creating HTML documents (books, in particular) by
+                    using a subset of all the (X)HTML5 elements. This is one of the first public
+                    works by a publisher for pushing HTML-like publications, even if the status of
+                    its documentation (and, consequently, of its schema) is still <q>unofficial</q>.</p>
+                <p>Another project, which shares the same name of one of the previous ones, <a href="https://github.com/scienceai/scholarly.vernacular.io">Scholarly
+                        HTML</a>, is a work by the <a href="http://science.ai">science.ai</a>
+                    company that aims at providing a domain-specific data format based on open
+                    standards (among which HTML5) for enabling <q>the interoperable exchange of
+                        scholarly articles in a manner that is compatible with off-the-shelf
+                        browsers</q>
+                    <a href="#scholarlyhtml2"> </a>. While the format is not defined by any
+                    particular formal grammar, it has a well-described documentation <a href="#scholarlyhtml2"> </a> that teaches how to produce scholarly documents
+                    by using a quite large set of HTML tags, accompanied by <a href="http://schema.org">schema.org</a> annotations for describing specific
+                    structural roles of documents as well as basic metadata of the paper. The company also provides services that enable the conversion from Microsoft Word document into ScholarlyHTML format. </p>
+                <p>One of the authors of the previous work is also the chair of a <a href="https://www.w3.org/community/scholarlyhtml/">W3C community group
+                        called <q>Scholarly HTML</q></a> which aims at developing a <a href="https://github.com/w3c/scholarly-html">HTML vernacular</a> for the
+                    creation of a Web-first format for scholarly articles. It involves several
+                    people from all the aforementioned specifications (including RASH), and the
+                    group work should result in the release of a community-proposed interchange HTML
+                    format. As of August 10, 2016, the <a href="https://w3c.github.io/scholarly-html/">online documentation</a> is
+                    mainly a fork of the Scholarly HTML specification proposed by science.ai
+                    discussed above.</p>
+            </section>
+            <section>
+                <h1>HTML-oriented WYSIWYG editors</h1>
+                <p>One of the most important and recent proposals, which is compliant with the
+                    principles introduced as part of the <em><a href="http://linkedresearch.org">Linked Research</a></em> project<a href="#fn11"> </a>
+                    <a href="#linked-research">, </a> is <em><a href="http://dokie.li">dokieli</a></em> <a href="#capadisli-dokieli"></a>. Dokieli is a web application (still under development)
+                    that allows the creation of HTML-based scholarly articles directly on the browser,
+                    and implements several features among which are annotations (in RDF) and a notification
+                    system. The application makes also available some
+                    HTML templates and a series of widgets for navigating, visualising (in different
+                    formats) and printing research documents easily by using common browsers.</p>
+                <p><a href="https://www.fiduswriter.org/">Fidus Writer</a> is another Web-based
+                    application for creating HTML scholarly documents by means of a
+                    wordprocessor-like interface. While the particular format used is not explicitly
+                    specified, it allows the conversion of the HTML documents created within the
+                    application in two different formats, i.e. EPUB and LaTeX (alongside with
+                    HTML).</p>
+                <p><a href="https://www.authorea.com">Authorea</a> is a Web service that allows users to write papers by means of a clear and effective interface. It enables the inclusion of the main components of scientific papers such as inline elements (emphasis, quotations, etc.), complex structures (figures, equations, etc.), and allows the use of Markdown and LaTeX for adding more sophisticated constructs. In addition, Authorea is able to export the document in four different formats (PDF, LaTeX, DOCX, and zipped archive with several HTML files) and according to a large number of stylesheets used in academic venues.</p>
+            </section>
+        </section>
+
+
+        <section id="sec_rationale">
+            <h1>Which <q>Web-first</q> format for research articles?</h1>
+            <p>The term "Web-first" format indicates the possibility of using HTML as a primary
+                format to write, store and transfer research articles, and not only to make these
+                articles available on the Web. Some questions naturally arise in this context: shall
+                we use the full HTML? If we impose a limited subset, which elements should we consider?
+                Shall we demand specific rules for using the language? </p>
+            <p>Some works, e.g. <a href="#linked-research"> </a>, suggest not to force any particular HTML structure
+                for research papers. This choice would allow authors to use whatever HTML structure
+                they want for writing papers and would reduce (even, eliminate) the fear for the
+                    <em>template bottleneck</em>, i.e., the fact that users may not adopt a particular language if they are compelled to follow specific rules. On the other hand, leaving to the authors
+                the freedom of using, potentially, the whole
+                HTML specification may affect, in some way, the whole writing and publishing process
+                of articles. The author could adopt any kinds of HTML
+                <em>linearisations</em>, e.g.: using elements
+                <code>div</code> instead of elements <code>section</code>, using elements
+                <code>table</code> for their presentational behaviour (i.e. how they are rendered by browsers or other software readers)
+                and not for presenting tabular data, and the like. This freedom could 
+                result in two main kinds of issues:</p>
+            <ul>
+                <li>
+                    <p><em>visualisation bottleneck</em> – it may affect the correct use of
+                        existing, well-developed and pretty standard CSSs (e.g., Capadisli's CSSs
+                        developed for <a href="http://dokieli.io">Dokieli</a>) for both screen and
+                        print media, in having to write new codes for handling paper visualisation correctly;</p>
+                </li>
+                <li>
+                    <p><em>less focus on the research content</em> – the fact that a certain paper
+                        is not visualised in a browser very well (or, worse, in a way that is not
+                        the one the author expects) could bring the author to work on the
+                        presentation of the text, rather than on focussing on the actual research
+                        content of the text.</p>
+                </li>
+            </ul>
+            <p>Another point against the use of any HTML syntax for writing papers concerns the
+                possibility of enabling an easy way for sharing the paper with others (e.g.,
+                co-authors) who, potentially, may not use HTML in the same way. If all the
+                co-authors of a paper are able to use the full HTML, they may not understand other
+                users' specific use of some HTML tags — <q>why did they use the elements
+                        <code>section</code> instead of <code>div</code>?</q>; <q>what is this
+                    freaky use of elements <code>table</code>?</q>. Hence, the advantages of using a
+                common HTML format is quite evident: only one syntax and only one possible
+                semantics.</p>
+
+            <p>There is a further issue worth mentioning. Having a shared, unambiguous and simple format
+                would facilitate conversions from/into other complex ones (e.g., ODT <a href="#odt"> </a>, OOXML <a href="#ooxml"> </a>, DocBook <a href="#docbook"> </a>, JATS <a href="#jats"> </a>), thus enabling authors to use their own text editors or
+                word-processors to modify the articles. The conversion is instead much more complex,
+                error-prone and imprecise on the full HTML.</p>
+            <p>To complicate an already complex scenario there is the <em>necessary</em> involvement of
+                publishers. Allowing the authors to use their own HTML format could be counterproductive from a publisher's perspective, in particular when we speak about
+                the possibility of adopting such HTML formats for regular conference/journal camera-ready submissions. From a <a href="https://groups.google.com/forum/#!topic/forcnet/g4BNAOOMjMM">recent
+                    discussion on the Force11 mailing list</a>, it emerges that publishers are
+                willing to adopt HTML for submissions <em>if and only if</em> it is a clear
+                community need. It means that they will include HTML formats in the publishing
+                workflow only once a number of conference organisers decides to include HTML among 
+                the accepted formats for paper submissions<a href="#fn6"> </a>. However, using one
+                clear Web-first format, rather than a plethora of possible variations allowed by the
+                full HTML schema, would certainly lighten the burden of publishers for including HTML within their publishing workflow. This inclusion could be additionally favoured by the availability of services (e.g.,
+                editors, converters, enhancers, visualisers) for facilitating the use of such a Web-first
+                format within the existing publishing environments.</p>
+            <p>Last but not least, using a controlled subset of HTML is more appropriate for
+                    <em>Semantic Publishing</em> applications <a href="#shotton-sempub"> </a><a href="#peroni-book"> </a>. The development of scripts and applications to
+                extract, for instance, RDF statements directly from the markup structure of the text
+                is a sort of nightmare if different authors use HTML in different manners. For
+                instance, what happens when trying to extract the rhetorical organisation of a
+                scientific paper according to the <a href="http://purl.org/spar/doco">Document
+                    Component Ontology (DoCO)</a>
+                <a href="#doco"> </a> from two HTML documents that use HTML tags in different ways?
+                Is an HTML element <code>table</code> an actual table (containing tabular data)?
+                Which are the tags identifying sections? These analyses are all easier within a controlled and unambiguous subset of HTML.</p>
+
+        </section>
+
+        <section id="sec_rash">
+            <h1>Writing scholarly articles in HTML with RASH</h1>
+            <p>The subset of HTML we propose in RASH is strictly compliant to a <em>patterns
+                    theory</em> we have developed over the past few years. 
+           Patterns are widely accepted solutions to handle recurring problems. 
+           Firstly introduced for architecture and engineering problems <a href="#alexander-pattern"> </a>, 
+           they have been successfully deployed in computer science 
+           and in particular in software engineering <a href="#gamma-pattern"> </a>.
+           In this section, we briefly
+           introduce our patterns for document engineering 
+           and then we go into the details of RASH.</p>
+            <section id="sec_patterns">
+                <h1>Theoretical foundations: structural patterns</h1>
+                <p>While we have plenty of tools and languages for creating new markup languages
+                    (e.g. RelaxNG <a href="#relaxng"> </a> and XMLSchema <a href="#xmlschema"> </a>),
+                    these usually do not provide any particular guideline for fostering the
+                    development of robust and well-shaped document languages. In order to fill that
+                    gap, in the last decade we have experimented with the use of a <em>theory of
+                        structural patterns</em> for markup documents <a href="#patterns"> </a>, that has since been applied in several national and international
+                    standards, among which <a href="https://www.oasis-open.org/committees/legaldocml/">OASIS LegalDocumentML</a><a href="#fn7"> </a>, a legal document
+                    standard for the specification of parliamentary, legislative and judicial
+                    documents, and for their interchange between institutions in different
+                    countries.</p>
+                <p>The basic idea behind this theory is that each element of a markup language
+                    should comply with one and only one structural pattern, depending on the fact
+                    that the element:</p>
+                <ul>
+                    <li>
+                        <p>can or cannot contain text (<em>+t</em> in the first case,
+                                <em>-t</em> otherwise);</p>
+                    </li>
+                    <li>
+                        <p>can or cannot contain other elements (<em>+s</em> in the first case,
+                                <em>-s</em> otherwise);</p>
+                    </li>
+                    <li>
+                        <p>is contained by another element that can or cannot contain text
+                                (<em>+T</em> in the first case, <em>-T</em> otherwise).</p>
+                    </li>
+                </ul>
+
+                <p>By combining all these possible values – i.e. <em>±t</em>, <em>±s</em>,
+                    and <em>±T</em> – we basically obtain eight core structural patterns, namely
+                    (accompanied by a plausible example within the HTML elements):</p>
+                <ol>
+                    <li>
+                        <p>inline [+t+s+T], e.g. the element <code>em</code>;</p>
+                    </li>
+                    <li>
+                        <p>block [+t+s-T], e.g. the element <code>p</code>;</p>
+                    </li>
+                    <li>
+                        <p>popup [-t+s+T], e.g. the element <code>aside</code>;</p>
+                    </li>
+                    <li>
+                        <p>container [-t+s-T], e.g. the element
+                            <code>section</code>;</p>
+                    </li>
+                    <li>
+                        <p>atom [+t-s+T], e.g. the element <code>abbr</code>;</p>
+                    </li>
+                    <li>
+                        <p>field [+t-s-T], e.g. the element <code>title</code>;</p>
+                    </li>
+                    <li>
+                        <p>milestone [-t-s+T], e.g. the element <code>img</code>;</p>
+                    </li>
+                    <li>
+                        <p>meta [-t-s-T], e.g. the element <code>link</code>.</p>
+                    </li>
+                </ol>
+                <p>Instead of defining a large number of complex and diversified structures, the
+                    idea is that a small number of structural patterns are sufficient to express
+                    what most users need for defining the organisation of their documents. Therefore, the two main aspects related to such patterns
+                    are:</p>
+                <ul>
+                    <li>
+                        <p><em>orthogonality</em> – each pattern has a specific goal and fits a specific
+                            context. It makes it possible to associate a single pattern to each of
+                            the most common situations in document design. Conversely, for every
+                            situation encountered in the creation of a new markup
+                            language, the corresponding pattern is immediately selectable and
+                            applicable;</p>
+                    </li>
+                    <li>
+                        <p><em>assemblability</em> – each pattern can be used only in some contexts within
+                            other patterns. This strictness provides expressiveness and
+                            non-ambiguity in the patterns. By limiting the possible choices,
+                            patterns prevent the creation of uncontrolled and misleading content
+                            structures.</p>
+                    </li>
+                </ul>
+                <p>Such patterns allow authors to create unambiguous, manageable and well-structured
+                    markup languages and, consequently, documents, fostering increased reusability (e.g., inclusion, conversion, etc.) among different languages.
+                    Also, thanks to the regularity they provide, it is possible to perform easily
+                    complex operations on pattern-based documents even when knowing very little
+                    about their vocabulary (automatic visualisation of document, inferences on the
+                    document structure, etc.). In this way, designers can implement more reliable and
+                    efficient tools, can make a hypothesis regarding the meanings of the document
+                    fragments, can identify singularities and can study the global properties of a set of
+                    documents, as described in <a href="#patterns-recognising"></a> <a href="#doco-recognising"></a>.</p>    
+                <p>We applied these guidelines for the definition of RASH. We restricted HTML, which does not use the aforementioned patterns in a systematic way, allowing the creation of arbitrary and, sometimes, quite ambiguous structures by selecting a good subset of elements expressive enough to capture the typical components of a scholarly article while being also well-designed, easy to reuse and robust.
+                </p>
+            </section>
+
+            <section>
+                <h1>RASH: Research Article in Simplified HTML</h1>
+                <p>The <em>Research Articles in Simplified HTML</em> (<em>RASH</em>) format is a
+                    markup language that restricts the use of <a href="http://www.w3.org/TR/html5/">HTML</a> elements to only <em>32 elements</em> for writing academic
+                    research articles. It allows authors to use embedded RDF annotations. In addition, RASH strictly follows the Digital
+                    Publishing WAI-ARIA Module 1.0 <a href="#dpub"> </a> for expressing structural semantics on various markup elements
+                    used.</p>
+                <p>All RASH documents begin as a simple HTML5 document<a href="#fn4"> </a> <a href="#html5"> </a>, by
+                    specifying the generic HTML DOCTYPE followed by the document element
+                        <code>html</code> with the usual namespace (
+                        <q>http://www.w3.org/1999/xhtml</q>) and with additional (and mandatory)
+                    prefix declarations through the attribute <code>prefix</code><a href="#fn3"> </a>. The element <code>html</code> contains the element <code>head</code> for
+                    defining metadata of the document according to the <a href="http://dublincore.org/documents/dcmi-terms/">DCTERMS</a> and <a href="http://www.prismstandard.org/">PRISM</a> standards and the element
+                        <code>body</code> for including the whole content of the document. The element <code>head</code> of a RASH document must include
+                    some information about the paper, i.e., the paper title (element
+                        <code>title</code>), at least one author, while other related information
+                    (i.e., affiliations, keywords and categories included using the elements
+                        <code>meta</code> and <code>link</code>) are optional. The element
+                        <code>body</code> mainly contains textual elements (e.g., paragraphs,
+                    emphases, links, and quotations) for describing the content of the paper, and
+                    other structural elements (e.g., abstract, sections, references, and footnotes)
+                    used to organise the paper in appropriate blocks and to present specific
+                    complex structures (e.g., figures, formulas, and tables).</p>
+                <p>In the following subsection, we provide a quick discussion about usage patterns in
+                    RASH, and introduce the tools used for developing its grammar.</p>
+
+                <section>
+                    <h1>Development and patterns</h1>
+                    <p>The development of RASH started from the whole HTML5
+                        grammar, and proceeded by removing and restricting the particular use of
+                        HTML elements, to make them expressive enough for representing the structures
+                        of scholarly papers and to have the language totally compliant with the
+                        theory on <em>structural patterns</em> for XML documents <a href="#patterns"> </a> introduced in <a href="#sec_patterns"> </a></p>
+                    <p>The systematic use of these structural patterns is an
+                        added value in all stages of the documents' lifecycle: they can be
+                        guidelines for creating well-engineered documents and vocabularies, rules to
+                        extract structural components from legacy documents, indicators to study to
+                        what extent documents share design principles and community guidelines. All
+                        these characteristics have allowed us to simplify, at least to some extent,
+                        the handling of all the requirements introduced in <a href="#sec_introduction"> </a> and <a href="#sec_rationale"> </a> in RASH.
+                            <a href="#table_patterns"> </a> shows what is the current pattern
+                        assignment for each element in RASH.</p>
+                    <figure id="table_patterns">
+                        <table>
+                            <tr>
+                                <th>Pattern</th>
+                                <th>RASH element</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>inline</p>
+                                </td>
+                                <td>
+                                    <p><code>a</code>, <code>code</code>, <code>em</code>,
+                                            <code>math</code>, <code>q</code>, <code>span</code>,
+                                            <code>strong</code>, <code>sub</code>, <code>sup</code>,
+                                            <code>svg</code></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>block</p>
+                                </td>
+                                <td>
+                                    <p><code>figcaption</code>, <code>h1</code>, <code>p</code>,
+                                            <code>pre</code>, <code>th</code></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>popup</p>
+                                </td>
+                                <td>
+                                    <p>
+                                        <em>none</em>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>container</p>
+                                </td>
+                                <td>
+                                    <p><code>blockquote</code>, <code>body</code>,
+                                            <code>figure</code>, <code>head</code>,
+                                            <code>html</code>, <code>li</code>, <code>ol</code>,
+                                            <code>section</code>, <code>table</code>,
+                                            <code>td</code>, <code>tr</code>, <code>ul</code></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>atom</p>
+                                </td>
+                                <td>
+                                    <p>
+                                        <em>none</em>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>field</p>
+                                </td>
+                                <td>
+                                    <p><code>script</code>, <code>title</code></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>milestone</p>
+                                </td>
+                                <td>
+                                    <p>
+                                        <code>img</code>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>meta</p>
+                                </td>
+                                <td>
+                                    <p><code>link</code>, <code>meta</code></p>
+                                </td>
+                            </tr>
+                        </table>
+                        <figcaption>The use of structural patterns in RASH.</figcaption>
+                    </figure>
+                    <p>Notice that we do not use two patterns presented in <a href="#sec_patterns"> </a>, namely <em>atom</em> and <em>popup</em>. The
+                        elements compliant with the former pattern are contained in discursive blocks (e.g. paragraphs) and contain only textual content with no additional elements. This is very infrequent
+                        in scholarly writings since any element
+                        used for emphases, links, and other in-sentence elements can always contain
+                        additional elements (e.g. an emphasis can contain a link).</p>
+                    <p>A different discourse can be done for the pattern <em>popup</em>, which is
+                    	meant to represent complex substructures
+                        that interrupt but do not break the main flow of the text, such as footnotes
+                            <a href="#patterns"> </a>.
+                        An element compliant to the <em>popup</em> pattern, while still not allowing directly text content inside
+                        itself, is found in elements with a mixed  context
+                            [<code>+t+s</code>]. In particular, in developing RASH, we
+                        discussed which of the following two possible approaches for defining
+                        footnotes was more adequate to our needs.</p>
+                    <p>The first option was a <em>container</em>-based behaviour, also suggested by JATS <a href="#jats"> </a> by means of the element <code>fn-group</code> and not included in HTML specifications, that
+                        allows the authors to specify footnotes (through the element <code>ft</code>) by
+                        using a tag that is totally separated from the main text from which it is
+                        referenced (usually through XML attributes), as shown in the following
+                        excerpt:</p>
+                    <pre><code>
+&lt;-- A paragraph referring to a footnote --&gt;
+&lt;p&gt;
+    In this paragraph there is an explicit reference to the 
+    second footnote&lt;xref rid="n2"&gt;&lt;/xref&gt;.
+&lt;/p&gt;
+
+&lt;-- The group containing all the footnotes --&gt;
+&lt;fn-group&gt;
+    &lt;fn id="n1"&gt;
+        &lt;p&gt;This is a paragraph within a footnote.&lt;/p&gt;
+    &lt;/fn&gt;
+    &lt;fn id="n2"&gt;
+        &lt;p&gt;This is a paragraph in another footnote.&lt;/p&gt;
+        &lt;p&gt;
+            All the footnotes are contained in a group, so as
+            to collect them together.
+        &lt;/p&gt;
+    &lt;/fn&gt;
+    ...
+&lt;/fn-group&gt;
+                        </code></pre>
+                    <p>The alternative was a <em>popup</em>-based behaviour, used by
+                        default in LaTeX (through the marker <code>\footnote{}</code>) and even
+                        possible in JATS (which is a very permissive language by design), where a
+                        paragraph can be abruptly interrupted by one or more paragraphs specified in
+                        a footnote, as shown in the following excerpt:</p>
+                    <pre><code>
+&lt;-- A paragraph containing a footnote --&gt;
+&lt;p&gt;
+    In this paragraph the footnote &lt;fn id="n3"&gt;&lt;p&gt;That is
+    what we call popup-based behaviour!.&lt;/p&gt;&lt;/fn&gt; has been 
+    defined directly within it.
+&lt;/p&gt;                    
+                    </code></pre>
+                    <p>We considered the latter approach a bit confusing, since it actually
+                        decreases the readability of the HTML source where footnotes are needed. We thus 
+                        decided to adopt a solution similar to the JATS <code>fn-group</code>
+                        element, extending the HTML5 <code>section</code> element with <code>@role</code> set to <code>doc-endnotes</code> and <code>doc-endnote</code>:</p>
+                    <pre><code>
+&lt;-- A paragraph referring to a footnote --&gt;
+&lt;p&gt;
+    In this paragraph there is an explicit reference to the 
+    second footnote&lt;a href="#fn2"&gt;&lt;/a&gt;.
+&lt;/p&gt;
+
+&lt;-- The group containing all the footnotes --&gt;
+&lt;section role="doc-endnotes"&gt;
+    &lt;section role="doc-endnote" id="fn1"&gt;
+        &lt;p&gt;This is the text of a footnote.&lt;/p&gt;
+    &lt;/section&gt;
+    &lt;section role="doc-endnote" id="fn2"&gt;
+        &lt;p&gt;This is the text of another footnote.&lt;/p&gt;
+    &lt;/section&gt;
+    ...
+&lt;/section&gt;
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h1>Grammar and peculiarities</h1>
+                    <p>The <a href="https://raw.githubusercontent.com/essepuntato/rash/7ef4c2f2ea63575fb32f17e826d60333543eda67/grammar/rash.rng">formal grammar of RASH</a> (current version: 0.6.1) has been developed by
+                        means of RelaxNG <a href="#relaxng"> </a>, which is a simple, easy to learn,
+                        and powerful schema language for XML. The grammar has been logically
+                        organised in four distinct logical blocks of syntactic rules, defining
+                        respectively elements, attributes, content models<a href="#fn9"> </a> for the
+                        elements and their related attribute lists, as summarised in the following
+                        excerpt:</p>
+                    <pre><code>
+...
+&lt;define name="p"&gt;
+    &lt;element name="p"&gt;
+        &lt;ref name="attributes_html_element_no_role" /&gt;
+        &lt;ref name="cm_inline" /&gt;
+    &lt;/element&gt;
+&lt;/define&gt;
+...
+&lt;define name="aClass"&gt;
+    &lt;attribute name="class"&gt;
+        &lt;data type="NMTOKENS" /&gt;
+    &lt;/attribute&gt;
+&lt;/define&gt;
+...
+&lt;define name="cm_inline"&gt;
+    &lt;zeroOrMore&gt;
+        &lt;choice&gt;
+            &lt;text /&gt;
+            &lt;ref name="a" /&gt;
+            &lt;ref name="aRef" /&gt;
+            &lt;ref name="img" /&gt;
+            &lt;ref name="svg" /&gt;
+            &lt;ref name="math" /&gt;
+            &lt;ref name="img_math" /&gt;
+            &lt;ref name="span_latex" /&gt;
+            &lt;ref name="span" /&gt;
+            &lt;ref name="code" /&gt;
+            &lt;ref name="sub" /&gt;
+            &lt;ref name="sup" /&gt;
+            &lt;ref name="em" /&gt;
+            &lt;ref name="strong" /&gt;
+            &lt;ref name="q" /&gt;
+        &lt;/choice&gt;
+    &lt;/zeroOrMore&gt;
+&lt;/define&gt;
+...
+&lt;define name="attributes_html_element_no_role"&gt;
+    &lt;ref name="attributes_html_generic" /&gt;
+    &lt;optional&gt;
+        &lt;ref name="aClass" /&gt;
+    &lt;/optional&gt;
+    &lt;ref name="attributes_rdfa" /&gt;
+&lt;/define&gt;
+...
+                    </code></pre>
+                    <p>Starting from the latest versions of the language, there has been a clear shift towards an extended use of HTML5 semantic elements, despite the fact they are
+                        not backwards compatible with their more generic alternatives in HTML4 <a href="#html4"></a>.
+                        In particular, the elements <code>section</code>, <code>figure</code>, and
+                            <code>figcaption</code> have been adopted so as to clearly refer to
+                        paper sections and boxes with tables, figures, listings and formulas,
+                        accompanied by a particular caption.</p>
+                    <p>While this choice has fostered the readability of the source, the use of
+                        these HTML5 elements was not enough to provide proper semantics and
+                        accessibility to the RASH source. Thus, in order to improve the user
+                        experience in terms of accessibility of such HTML-based papers, RASH reuses
+                        some items from the W3C Accessible Rich Internet Applications 1.1 <a href="#aria"> </a>, and also exploits several roles introduced in the
+                        Digital Publishing WAI-ARIA Module 1.0 <a href="#dpub"> </a>, which allows the <a href="https://lists.w3.org/Archives/Public/public-dpub-aria/2016Feb/0032.html"><q>digital publishers to apply the structural semantics they need to drive the authoring process while getting free accessibility</q></a>. The use of such semantics is implemented by means of the
+                        attribute <code>@role</code><a href="#fn10"> </a>, that can be used on
+                        certain RASH elements, e.g. sections, and it is very useful for specifying a
+                        clear structural semantics where it is not formally defined. For instance,
+                        all the references are organised in a list within a special section defined
+                        by using the element <code>section</code> with the attribute
+                            <code>@role</code> set to <q>doc-bibliography</q>. This special section
+                        contains one list with a bibliographic reference for each list item (i.e.,
+                        the element <code>li</code> accompanied by the attribute <code>@id</code>
+                        for referencing to it within the text and the attribute <code>@role</code>
+                        set to <q>doc-biblioentry</q>), as shown in the following excerpt:</p>
+                    <pre><code>
+&lt;section role="doc-bibliography"&gt;
+    &lt;h1&gt;References&lt;/h1&gt;
+    &lt;ol&gt;
+        &lt;li id="Per2014" role="doc-biblioentry"&gt;
+            &lt;p&gt;Write here the reference entry.&lt;/p&gt;
+        &lt;/li&gt;
+        ...
+    &lt;/ol&gt;
+&lt;/section&gt;
+                    </code></pre>
+                    <p> Formulas require special consideration, since there are different ways to
+                        implement them. The standard specification for
+                        representing mathematics on the Web is MathML <a href="#mathml"> </a>. Even
+                        if MathML is the best accessible way for writing mathematical formulas, the
+                        organisation of the elements for defining even a quite simple formula is
+                        quite verbose and this is a reasonable obstacle to its direct adoption, as
+                        shown in the following excerpt for describing the formula <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>π</mi><mo/><msup><mi>r</mi><mn>2</mn></msup></math>:</p>
+                    <pre><code>
+&lt;math xmlns="http://www.w3.org/1998/Math/MathML"&gt;
+    &lt;mi&gt;π&lt;/mi&gt;
+    &lt;mo&gt;⁢&lt;!-- &amp;InvisibleTimes; --&gt;&lt;/mo&gt;
+    &lt;msup&gt;
+        &lt;mi&gt;r&lt;/mi&gt;
+        &lt;mn&gt;2&lt;/mn&gt;
+    &lt;/msup&gt;
+&lt;/math&gt;
+                    </code></pre>
+                    <p>To help the creator of RASH documents in dealing with formulas, RASH
+                        adds two other ways for writing formulas in addition to MathML. The first
+                        one is to use an image (element <code>img</code>), which is a very simple
+                        way to include maths in a paper. On the other hand, it is not accessible at
+                        all since the various elements of the formula are not marked-up properly so
+                        as to distinguish them. Another option is to use LaTeX, which is one
+                        of the most common ways to write formulas in many scientific papers. Both
+                        options are specifiable in RASH by using either the element
+                            <code>img</code> or the element <code>span</code> respectively,
+                        accompanied by the attribute <code>@role</code> set to <q>math</q>, as shown
+                        in the following excerpt:</p>
+                    <pre><code>
+&lt;-- Specifying a formula through the element 'img' --&gt;
+&lt;img role="math" src="formula.png" alt="r^2" /&gt;
+
+&lt;-- Specifying a formula in LaTeX through the element 'span' --&gt;
+&lt;span role="math"&gt;\pi r^2&lt;/span&gt;
+                    </code></pre>
+                    <p>The rendering of any LaTeX formula and the multi-browser support for MathML
+                        is implemented by using <a href="https://www.mathjax.org/">MathJax</a>,
+                        which is a Javascript display engine for mathematics that works in most modern
+                        browsers. Of course, it is necessary to explicitly import MathJax in the element
+                            <code>head</code> if any rendering of formulas is actually needed, as
+                        shown in the following:</p>
+                    <pre><code>
+&lt;!-- MathJax for multi-browser support of LaTeX formulas and MathML --&gt;
+&lt;script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"&gt; &lt;/script&gt;
+                    </code></pre>
+                    <p>RASH has been developed in order to allow anyone to add <span property="cito:credits" resource="http://www.w3.org/TR/rdfa-syntax/">RDFa</span> annotations <a href="#rdfa"> </a> to any element of the
+                        document. For instance, this paragraph contains the following RDF statement
+                        (in Turtle <a href="#turtle"> </a>):</p>
+                    <pre><code>
+@prefix cito: &lt;http://purl.org/spar/cito/&gt; .
+&lt;&gt; cito:credits &lt;http://www.w3.org/TR/rdfa-syntax/&gt; .</code></pre>
+                    <p>That was implemented by using specific RDFa attributes
+                            (<code>@property</code> and <code>@resource</code>, in this case) within
+                        the paragraph content, while the prefixes were defined in the element
+                            <code>html</code>, as shown in the following excerpt:</p>
+                    <pre><code>
+&lt;html prefix="cito: http://purl.org/spar/cito/"&gt;
+    ...
+    &lt;p&gt;
+        RASH has been developed in order to allow anyone to add 
+        &lt;span 
+            property="cito:credits" 
+            resource="http://www.w3.org/TR/rdfa-syntax/"&gt;RDFa&lt;/span&gt; 
+        annotations to any element of the document.
+    &lt;/p&gt;
+    ...
+&lt;/html&gt;
+            </code></pre>
+                    <p>In addition to RDFa, RASH makes available another way to inject RDF
+                        statements <a href="#rdf"> </a> to the document, by means of an element
+                            <code>script</code> (within the element <code>head</code>):</p>
+                    <ul>
+                        <li>
+                            <p>with the attribute <code>type</code> set to <q>text/turtle</q> for
+                                adding plain Turtle content <a href="#turtle"> </a>;</p>
+                        </li>
+                        <li>
+                            <p>with the attribute <code>type</code> set to
+                                    <q>application/ld+json</q> for adding plain JSON-LD content <a href="#jsonld"> </a>;</p>
+                        </li>
+                        <li>
+                            <p>with the attribute <code>type</code> set to
+                                    <q>application/rdf+xml</q> for adding plain RDF/XML content <a href="#rdfxml"> </a>.</p>
+                        </li>
+                    </ul>
+                    <p>An example of the use of the <code>script</code> for Turtle and JSON-LD statements is
+                        shown in the following excerpt:</p>
+                    <pre><code>
+&lt;script type="text/turtle"&gt;
+    @prefix pro: &amp;lt;http://purl.org/spar/pro/&amp;gt; .
+    @prefix foaf: &amp;lt;http://xmlns.com/foaf/0.1/&amp;gt; .
+    @prefix sd: &amp;lt;https://w3id.org/scholarlydata/person/&amp;gt; .
+    sd:silvio-peroni a foaf:Person ;
+        foaf:givenName "Silvio" ;
+        foaf:familyName "Peroni" ;
+        foaf:homepage &amp;lt;http://www.essepuntato.it&amp;gt; ;
+        pro:holdsRoleInTime [
+            a pro:RoleInTime ;
+            pro:withRole pro:author ;
+            pro:relatesToDocument &amp;lt;&amp;gt;
+        ] .
+&lt;/script&gt;
+
+&lt;script type="application/ld+json"&gt;
+    {
+        "@context":
+            {
+                "nick": "http://xmlns.com/foaf/0.1/nick",
+                "sd": "https://w3id.org/scholarlydata/person/"
+            },
+        "@id": "sd:silvio-peroni",
+        "nick": ["S.", "essepuntato"]
+    }
+&lt;/script&gt;
+            </code></pre>
+                    <p>It is worth noticing that RASH does not require any particular vocabulary for introducing RDF statements, except three properties from <a href="http://schema.org">schema.org</a> for defining author's metadata (see <a href="https://rawgit.com/essepuntato/rash/master/documentation/index.html#metadata">Section 2 of the RASH documentation</a> for additional details). For instance, in this document (in particular, in its <a href="https://w3id.org/people/essepuntato/papers/rash-peerj2016.html">RASH version</a>) we mainly use CiTO <a href="#peroni-cito"> </a> and
+                        other SPAR Ontologies <a href="#peroni-spar"> </a> for creating citation
+                        statement about the paper itself, but alternative and/or complementary
+                        vocabularies are freely usable as well.</p>
+                </section>
+            </section>
+        </section>
+
+        <section id="sec_rash_framework">
+            <h1>The RASH Framework</h1>
+            <p>One of the issues we had to face, and in general anyone has to face when proposing a
+                new markup language, was to provide tools for writing papers in RASH. It is
+                undeniable that: </p>
+            <ul>
+                <li>
+                    <p>not all the potential authors are able (or willing) to write scholarly
+                        articles in HTML, even within the Web community;</p>
+                </li>
+                <li>
+                    <p>not all the potential authors are able (or willing) to manually add additional
+                        semantic annotations, even within the Semantic Web community.</p>
+                </li>
+            </ul>
+            <p>The authorial activity of writing an article by using RASH, but also any other new
+                Web-first format, <em>must</em> be supported by appropriate interfaces and tools to reach a
+                broad adoption.</p>
+            <p>A possible solution was to implement a native HTML authoring
+                environment, so that authors did not have to deal directly with the new language. However, this solution would have forced all co-authors to use to the same tool and introduced a variety of technical difficulties,
+                since it is not easy to create and support a user friendly and flexible work environment.
+                We believe that a more liberal approach, that
+                allows each author to keep using her/his preferred tools, even off-line, is more
+                practical. </p>
+            <p>This is the idea behind the <a href="https://github.com/essepuntato/rash">RASH Framework</a> <a href="#rash-release"> </a>: a set of
+                specifications and writing/conversion/extraction tools for writing articles in
+                    <em>RASH</em>. In this section, we give a brief description of all the tools we
+                have developed in the framework. All the software components are distributed under
+                an <a href="http://opensource.org/licenses/ISC">ISC License</a>, while the other
+                components are distributed under a <a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution
+                    4.0 International License</a>. A summary of the whole framework is introduced in
+                    <a href="#fig_framework"> </a>.</p>
+            <figure id="fig_framework">
+                <p>
+                    <img src="img/rash-framework-peerj.png" alt="The RASH Framework"/>
+                </p>
+                <figcaption>The RASH Framework and its main components.</figcaption>
+            </figure>
+            <section>
+                <h1>Validating RASH documents</h1>
+                <p>RASH has been developed as a RelaxNG grammar <a href="#relaxng"> </a>, i.e., a
+                    well-known schema language for XML documents. All the markup items it defines
+                    are fully compatible with the HTML5 specifications <a href="#html5"> </a>.</p>
+                <p>In order to check whether a document is compliant with RASH, we <a href="https://github.com/essepuntato/rash/blob/master/tools/rash-check.sh">developed a
+                    script</a> to enable RASH users to check their documents simultaneously both against
+                    the specific requirements in the RASH RelaxNG grammar and 
+                    also against the HTML specification through <a href="http://validator.w3.org/nu/">W3C Nu HTML
+                        Checker</a>. This will hopefully help RASH users to timely detect and fix any mistakes in their documents. This script also checks datatype microsyntaxes.</p>
+                <p>In addition to the aforementioned script, we developed a <a href="https://github.com/essepuntato/rash/tree/master/tools/rash-validator">Python application</a> that enables one to validate RASH documents against the RASH grammar. This application makes also available a Web interface for visualising all the validation issues retrieved in RASH documents.</p>
+            </section>
+
+            <section>
+                <h1>Visualising RASH documents</h1>
+                <p>The visualization of a RASH document is rendered
+                    by the browser by means of appropriate <a href="http://www.w3.org/Style/CSS/specs.en.html">CSS3</a> stylesheets <a href="#css3"> </a> and Javascript developed for this purpose.</p>
+                <p>RASH adopts external libraries, such as <a href="http://getbootstrap.com/">Bootstrap</a> and <a href="http://jquery.com/">JQuery</a>, in order to provide the current
+                    visualisation and include additional tools for the user. For instance,
+                    the footbar with statistics about the paper (i.e., number of words, figures,
+                    tables and formulas) and a menu to change the actual layout of the page<a href="#fn5"> </a>, the automatic reordering of footnotes and references, the
+                    visualisation of the metadata of the paper, etc.</p>
+                <p>Note that this kind of automatic rendering of paper items, such as references
+                    to a bibliographic entry or a figure, reduce the cognitive effort of an author
+                    when writing a RASH paper. For instance, a piece of text referencing a table,
+                    e.g. <q>as shown in <a href="#table_patterns"> </a></q> is created without caring
+                    about the particular text to specify for that reference (<q><a href="#table_patterns"> </a></q> in the example), since RASH prescribes
+                    to specify just an empty link to the object one wants to refer to, as shown in
+                    the following excerpt:</p>
+                <pre><code>&lt;p&gt;... as shown in &lt;a href="#table_patterns"&gt;&lt;/a&gt; ...&lt;/p&gt;</code></pre>
+                <p>For these objects, the Javascript scripts decide
+                    which is the most suitable text to put there according to the type of the item
+                    referenced.</p>
+            </section>
+
+            <section id="sec_converting_latex">
+                <h1>Converting RASH into LaTeX styles</h1>
+                <p>We spent some effort in preparing XSLT 2.0 documents <a href="#xslt2"> </a>
+                    for converting RASH documents into different LaTeX styles, such as <a href="http://www.acm.org/sigs/publications/proceedings-templates">ACM
+                        ICPS</a> and <a href="http://www.springer.com/computer/lncs?SGWID=0-164-6-793341-0">Springer
+                        LNCS</a>, among the others. We believe this is essential to foster the use of RASH
+                    within international events and to easily publish
+                    RASH documents in the official LaTeX format currently required by the organisation
+                    committee of such events. Obviously, the full adoption of RASH or any other Web-first format, would make these stylesheets not necessary but, currently, they are fundamental for the adoption of the overall approach.</p>
+            </section>
+            <section id="sec_converting_odt">
+                <h1>Producing RASH from ODT and DOCX</h1>
+                <p>We also developed two XSLT 2.0 documents to perform
+                    conversion from <a href="https://github.com/essepuntato/rash/blob/master/xslt/from-odt.xsl">Apache OpenOffice documents</a> and <a href="https://github.com/essepuntato/rash/blob/master/xslt/from-docx.xsl">Microsoft Word documents</a> into RASH documents. The RASH documentation provides a detailed description of how to use <a href="https://rawgit.com/essepuntato/rash/master/documentation/rash-in-odt.odt">Apache OpenOffice</a> and <a href="https://rawgit.com/essepuntato/rash/master/documentation/rash-in-docx.docx">Microsoft Word</a> 
+                for writing scientific documents that can be easily converted to the RASH format. The 
+                standard features of these two editors (e.g. styles, document properties, etc.), elements 
+                (e.g. lists, pictures, captions, footnotes, hyperlinks, etc.) 
+                and facilities (e.g. mathematical editor, cross-reference editor, etc.) can be used to
+                produce fully compliant RASH documents. A web-based service, for converting 
+                documents online (presented in <a href="#sec_rocs"> </a>) and two Java applications for <a href="https://github.com/essepuntato/rash/tree/master/tools/odt2rash">ODT</a> and <a href="https://github.com/essepuntato/rash/tree/master/tools/docx2rash">DOCX</a> documents (that can be downloaded and used offline on the local machine) were developed to facilitate the conversion process of Apache OpenOffice and Microsoft Word 
+                documents into the RASH format.</p>
+                <p>In the past few years, as sort of alpha-testing, we have used these conversion
+                    approaches with many internal projects in the Digital and Semantic Publishing
+                    Laboratory of the Department of Computer Science and Engineering at the
+                    University of Bologna. Moreover, also our co-authors and collaborators from 
+                    different disciplines (e.g. business and management, humanities, medicine, etc.) 
+                    have successfully used this approach for producing their documents, giving us a chance to have fruitful feedback, comments, and suggestions. In particular, 
+                    we have been able to convert with discrete success several ODT and DOCX files of research papers, Ph.D. theses, documentations, and project proposals and deliverables.</p>
+            </section> 
+            <section id="sec_rocs">
+                <h1>ROCS</h1>
+                <p>We created an online conversion tool called <a href="http://dasplab.cs.unibo.it/rocs"><em>ROCS</em> (<em>RASH Online
+                            Conversion Service</em>)</a>
+                    <a href="#diiorio-rocs"> </a> for supporting authors in writing RASH documents
+                    and preparing submissions that could be easily processed by journals, workshops,
+                    and conferences. ROCS integrates the tools introduced in the previous
+                    sections.</p>
+                <p>The abstract architecture of the tool is shown in <a href="#fig_rocs"> </a>. ROCS
+                    allows converting either an ODT document or a DOCX document, written according to specific guidelines,
+                    into RASH and, then, into LaTeX according to the following layouts: Springer LNCS, ACM
+                    IPCS, ACM Journal Large, PeerJ. Such guidelines, introduced in <a href="#sec_converting_odt"> </a>, are very simple and use only the basic features
+                    available in Apache OpenOffice Writer and in Microsoft Word, without any external tool or plug-in.</p>
+                <figure id="fig_rocs">
+                    <p>
+                        <img src="img/rocs-peerj.png" alt="The architecture of ROCS."/>
+                    </p>
+                    <figcaption>The architecture of ROCS.</figcaption>
+                </figure>
+                <p>ROCS allows users to upload four kinds of file, i.e., an ODT document, a DOCX document, an HTML
+                    file compliant with RASH, and a ZIP archive which contains an HTML file
+                    compliant with RASH and related files (i.e., CSSs, javascript files, fonts,
+                    images). It returns a ZIP archive containing the original document plus all its
+                    converted versions, i.e., RASH, if an ODT/DOCX file was given, and the LaTeX file. </p>
+                <p>The main advantage of having the paper both in RASH and in LaTeX is that it is
+                    fairly easy for RASH to be adopted by workshops, conferences or journals. Since 
+                    the program committee, the reviewers, and the editors have also access to a
+                    LaTeX or a PDF version of the paper, the RASH file is an addition that does not
+                    preclude any current workflows. Of course, the hope is that the inherent
+                    advantages of an HTML-based format such as RASH will eventually persuade
+                    stakeholders to adopt the HTML version whenever it is possible, keeping the
+                    alternatives as fall-back options.</p>
+            </section>
+
+            <section>
+                <h1>Enriching RASH documents with structural semantics</h1>
+                <p>Another development of the RASH Framework concerns the automatic enrichment
+                    of RASH documents with RDFa annotations defining the actual structure of such
+                    documents in terms of the <a href="http://purl.org/spar/fabio">FRBR-aligned Bibliographic Ontology (FaBIO)</a> and the 
+                    <a href="http://purl.org/spar/doco">Document Component Ontology (DoCO)</a>
+                    <a href="#doco"> </a>. More in detail, we developed a Java application called <em>SPAR Xtractor
+                        suite</em><a href="#fn12"> </a>. 
+                        SPAR Xtractor is designed as a one-click tool
+                        able to add automatically structural semantics to a RASH document. SPAR Xtractor takes a RASH document as input and returns
+                    a new RASH document where all its markup elements have been annotated with their
+                    actual structural semantics by means of RDFa. The tool associates a set of FaBIO or DoCO types with specific
+                    HTML elements. The set of HTML elements and their associations with FaBIO or DoCO types can be customised according to specific
+                    needs of expressivity. The default association provided by the current release of SPAR Xtractor is the following:
+                    </p>
+                    <ul>
+	                    <li><p>the root <code>html</code> element is mapped to an individual of the class <a href="http://purl.org/spar/fabio/Expression"><code>fabio:Expression</code></a>. 
+	                    The class <code>fabio:Expression</code> identifies the specific intellectual or artistic form that a work takes each time it is realised;</p></li>
+                        <li><p>the <code>body</code> element is mapped to an individual of the class <a href="http://purl.org/spar/doco/BodyMatter"><code>doco:BodyMatter</code></a>. 
+	                    The class <code>doco:BodyMatter</code> is the central principle part of a document, it contains the real document content, and it is subdivided hierarchically by means of sections;</p></li>
+	                    <li><p><code>p</code> elements are represented as individuals of the class <a href="http://purl.org/spar/doco/Paragraph"><code>doco:Paragraph</code></a>, 
+	                    i.e. self-contained units of discourse that deal with a particular point or idea;</p></li>
+	                    <li><p><code>figure</code> elements containing the element <code>img</code> within a paragraph are represented as individuals
+	                    of the class <a href="http://purl.org/spar/doco/FigureBox"><code>doco:FigureBox</code></a>, which is a space within a document that contains a figure and its caption;</p></li>
+	                    <li><p><code>section</code> elements are mapped to individuals of the class <a href="http://purl.org/spar/doco/Section"><code>doco:Section</code></a>, which represents
+	                    a logical division of the text. Sections can be organised according to a variable level of nested sub-sections. Accordingly, SPAR Xtractor
+	                    reflects this structural behaviour by representing the containment relation by means of the object property <a href="http://www.essepuntato.it/2008/12/pattern#contains"><code>po:contains</code></a><a href="#fn13"> </a>.
+	                    For example, a certain <code>section</code> element with a nested <code>section</code> element produces two individuals of the class
+	                    <code>doco:Section</code> (e.g. <code>:section_outer a doco:Section</code> and <code>:div_inner a section:Section</code>) related by the property <code>po:contains</code> 
+	                    (e.g. <code>div_outer po:contains :div_inner</code>).</p></li>
+	                </ul>
+
+
+				<p>In addition to these semantic annotations, which come from the actual structure of a document, the tool is also able to automatically 
+                detect sentences and annotate them as individuals of the class <a href="http://purl.org/spar/doco/Sentence"><code>doco:Sentence</code></a>.
+                A <code>doco:Sentence</code> 
+                denotes an expression in natural language forming a single grammatical unit.
+                For the sentence detection task, SPAR Xtractor relies on the sentence detection module of the <a href="https://opennlp.apache.org/">Apache OpenNLP project</a>, which provides a machine learning based toolkit for the processing of natural language text.
+                By default, SPAR Xtractor is released to support English only. However, it is possible to extend it with new languages by adding their corresponding 
+                models for Apache OpenNLP, most of which are available with <a href="http://opennlp.sourceforge.net/models-1.5/">an open licence</a>.
+                </p>
+                <p>We remark that the object property <code>po:contains</code>
+                is used for representing any kind of containment relation among the structural components that 
+                SPAR Xtractor deals with. Hence, the usage of such a property is not limited to the individuals of the class <code>doco:Section</code> only. In fact, 
+                the property <code>po:contains</code> can be used, for example, for expressing the containment relation between a <code>doco:BodyMatter</code> and
+                a <code>doco:Section</code> or between a <code>doco:Section</code> and 
+                a <code>doco:Sentence</code>.
+                For example, let us consider the following code snippets that provide a sample HTML document.</p>
+                <pre><code>
+&lt;html&gt;
+  ...                
+  &lt;body&gt;
+    ...
+    &lt;section&gt;&lt;h1&gt;A section&lt;/h1&gt;
+      ...
+      &lt;p&gt;This is a sentence. This is another sentence of this paragraph.&lt;/p&gt;
+      ...
+      &lt;section&gt;&lt;h1&gt;A sub-section&lt;/h1&gt; ... &lt;/section&gt;
+      ...
+    &lt;/section&gt;
+    ...
+  &lt;/body&gt;
+&lt;/html&gt;
+                </code></pre>
+                <p>The HTML document in the snippet above is enriched by SPAR Xtractor resulting in the document
+                reported in the snippet below.</p>
+                <pre><code>
+&lt;html 
+  resource="expression" 
+  typeof="http://purl.org/spar/fabio/Expression"&gt;
+  ...
+  &lt;body resource="body" 
+    typeof="http://purl.org/spar/doco/BodyMatter" 
+    property="http://www.essepuntato.it/2008/12/pattern#contains"&gt;
+    ...
+    &lt;section resource="section_outer" 
+      typeof="http://purl.org/spar/doco/Section" 
+      property="http://www.essepuntato.it/2008/12/pattern#contains"&gt;
+      &lt;h1 resource="section_outer/title" 
+        typeof="http://purl.org/spar/doco/SectionTitle" &gt;
+        &lt;span property="http://purl.org/spar/c4o/hasContent"&gt;
+          A section
+        &lt;/span&gt;
+      &lt;/h1&gt;
+      ...
+      &lt;p resource="section_outer/paragraph-1" 
+        typeof="http://purl.org/spar/doco/Paragraph" 
+        property="http://www.essepuntato.it/2008/12/pattern#contains" &gt;
+        &lt;span property="http://www.essepuntato.it/2008/12/pattern#contains" 
+          resource="section_outer/paragraph-1/sentence-1" 
+          typeof="http://purl.org/spar/doco/Sentence"&gt;
+          &lt;span property="http://purl.org/spar/c4o/hasContent"&gt;
+            This is a sentence.
+          &lt;/span&gt;
+        &lt;/span&gt;
+        &lt;span property="http://www.essepuntato.it/2008/12/pattern#contains" 
+          resource="section_outer/paragraph-1/sentence-2" 
+          typeof="http://purl.org/spar/doco/Sentence"&gt;
+          &lt;span property="http://purl.org/spar/c4o/hasContent"&gt;
+            This is another sentence of this paragraph.
+          &lt;/span&gt;&gt;
+        &lt;/span&gt;&gt;
+      &lt;/p&gt;
+      ...
+      &lt;section resource="section_inner" 
+        typeof="http://purl.org/spar/doco/Section" 
+        property="http://www.essepuntato.it/2008/12/pattern#contains"&gt;
+        &lt;h1 resource="section_inner/title" 
+          typeof="http://purl.org/spar/doco/SectionTitle" "&gt;
+	      &lt;span property="http://purl.org/spar/c4o/hasContent"&gt;
+	        A sub-section
+	      &lt;/span&gt;
+	    &lt;/h1&gt; 
+        ... 
+      &lt;/section&gt;
+      ...
+    &lt;/section&gt;
+    ...
+  &lt;/body&gt;
+&lt;/html&gt;
+                </code></pre>
+            </section>
+            
+            <section>
+                <h1>Writing RASH documents with a native editor</h1>
+                <p>A recent development of RASH is the <a href="https://github.com/essepuntato/rash/tools/RAJE"><em>RASH Javascript Editor</em> (RAJE)</a> <a href="#spinaci-raje"> </a>, a multiplatform <em>What You See Is What You Get</em> (WYSIWYG) word processor for writing scholarly articles in HTML, according to the RASH format. In particular RAJE allows authors to write research papers in HTML natively by means of a user-friendly interface, instead of writing raw markup with an IDE, a text editor or any external word processor</p>
+                <p>RAJE guarantees to its users the benefits of a word processor combined with those given by an HTML-based format, i.e. interactiveness, accessibility and easiness to be processed by machine. In addition, RAJE uses the <a href="https://api.github.com/">GitHub API</a> so as to allow authors to store their articles online, to keep track of changes by means of the GitHub services, and to share the articles with others.</p>
+            </section>
+        </section>
+
+        <section id="sec_evaluation">
+            <h1>RASH and SAVE-SD: an evaluation</h1>
+            <p>The true validation for RASH as a format for research papers rests on its <strong>adoption by authors and workshops </strong> and its <strong>integration
+                    in the publishing process</strong>. For this reason, RASH was first released in
+                conjunction with the <a href="http://cs.unibo.it/save-sd/2015/index.html">Semantics,
+                    Analytics, Visualisation: Enhancing Scholarly Data (SAVE-SD 2015) workshop</a>,
+                co-located with WWW 2015. It was subsequently <a href="https://github.com/essepuntato/rash/#rash-papers-accepted-in-scholarly-venues">adopted by a number of workshops and conferences</a>. In this section, we will
+                present an evaluation of RASH based on the analysis of questionnaires completed by authors and reviewers of SAVE-SD 2015 and
+                    <a href="http://cs.unibo.it/save-sd/2016/index.html">SAVE-SD 2016</a> workshops and a study on RDF annotations in the relevant papers.</p>
+<p>
+                The users were asked to fill a questionnaire which included a section about their background, a SUS questionnaire and six
+                open questions about their experience with RASH. We will first introduce the two
+                workshops and then discuss and compare the evaluation results. Finally, we will present an analysis of the most frequent vocabularies and entities in RASH papers. The completed questionnaires and the outcomes of the analysis are available at <a href="#rash-eval"> </a>, while the RDF annotations considered in the study are embedded in the RASH papers available in the SAVE-SD 2015 and SAVE-SD 2016 websites. We used the online version of the <a href="https://www.w3.org/2012/pyRdfa/">RDFa 1.1 Distiller</a> for extracting the RDF annotations from the RASH papers.</p>
+            <p> It is worth noting that in 2015 there were no converters in the RASH
+                framework, and ROCS was introduced immediately before SAVE-SD 2016. Thus, in both
+                years authors wrote RASH papers with plain text editors or XML editors, apart from
+                one author that used ROCS in 2016. In general, the authors
+                appreciated RASH and the tools in the RASH framework, even if the editing
+                environment and the converters are still limited.</p>
+            <section>
+                <h1>SAVE-SD 2015 and 2016</h1>
+                <p>SAVE-SD 2015 was organized by some of the authors of this paper with the aim of bringing together publishers,
+                    companies, and researchers in order to bridge the gap between the
+                    theoretical/academic and practical/industrial aspects in regard to scholarly
+                    data. It was thus a multifaceted workshop which drew researchers from
+                    a number of heterogeneous fields, such as Document and Knowledge Engineering,
+                    Semantic Web, Natural Language Processing, Scholarly Communication,
+                    Bibliometrics and Human-Computer Interaction. Since many of the interested
+                    researchers were keen on experimenting with novel technologies regarding semantic
+                    publishing, it was a natural choice for the debut of RASH. For this reason,
+                    SAVE-SD 2015 allowed authors to submit papers using either RASH or PDF,
+                    explicitly encouraging authors to test the new format. To this end, the
+                    organisers introduced a special award for the best submission in RASH, according
+                    to the quality of the markup, the number of RDF statements defined in RDFa, and
+                    the number of RDF links to LOD datasets. The possibility of submitting in RASH
+                    was also advertised on social media (e.g., <a href="https://twitter.com/savesdworkshop">Twitter</a>, <a href="https://www.facebook.com/savesdworkshop">Facebook</a>) and during
+                    various international events (e.g., <a href="http://www.city.ac.uk/digital-libraries-2014">DL 2014</a>, <a href="http://www.ida.liu.se/conferences/EKAW14/home.html">EKAW 2014</a>, <a href="https://www.force11.org/meetings/force2015">FORCE 2015</a>).</p>
+                <p>The initiative had a substantial success: the workshop received 6 out of 23
+                    submissions in RASH and after the review process an additional author chose to
+                    prepare the camera-ready paper in RASH. Out of these 7 final submissions, 3 were
+                    research papers, 1 was a position paper, and 3 posters/demo. These papers were
+                    submitted by 16 authors from Switzerland, Italy, Germany, Netherlands, United
+                    Kingdom, Ireland, and the USA.</p>
+                <p>At the time of the workshop submission deadline, there were no public tools
+                    available for converting other formats into RASH. However, the authors were able
+                    to self-learn it by simply referring to the documentation page, confirming that
+                    computer scientists have no particular problem in handling it directly. The
+                    conversion of the RASH submissions into the ACM format requested by the Sheridan
+                    publisher (responsible for the publications of all WWW proceedings) was handled
+                    by the organisers through a semi-automatic process. In particular, they used the
+                    XLST files introduced in <a href="#sec_converting_latex"> </a> and had to fix
+                    only a few layout misalignments.</p>
+                <p>Six authors and four reviewers involved in SAVE-SD 2015 participated in our
+                    evaluation.</p>
+
+                <p>SAVE-SD 2016 had the same
+                    characteristics and goals of the predecessor. In order to give authors full
+                    freedom, the organizer decided to accept not only RASH, but any kind of
+                    HTML-based format. Since it was not possible to handle the conversion of all
+                    possible HTML-based format to the publisher layout, the authors of alternative
+                    formats were asked to prepare a PDF of the camera-ready version according to the
+                    publisher needs.</p>
+                <p>SAVE-SD 2016 received 6 out of 16 submissions in RASH from 14 authors from Italy,
+                    Sweden, Greece, Germany, Belgium, and the USA. In total, 5 out of the 14
+                    accepted papers were in RASH, including 2 full papers, 2 demos, and 1 position
+                    paper. Even if no author chose to submit in other HTML-based formats, this
+                    possibility will be kept open in future editions. Differently from the previous
+                    edition, the proceedings were published as a dedicated LNCS volume. The
+                    conversions of RASH papers to the PDF documents in Springer LNCS layout was
+                    automatically handled by ROCS.</p>
+                <p>As in the previous workshop, we evaluated RASH by conducting the same study (with
+                    the same exact questions) on ten people. Seven authors of RASH papers and three reviewers
+                    participated in the survey.</p>
+            </section>
+
+            <section>
+                <h1>User background</h1>
+                <p>It is useful to first assess the background of RASH pioneer users in term of their knowledge of relevant technologies and software. For this reason, the first section of the survey included a number of statements about the user expertize (e.g., "I have extensive experience in writing academic papers with LaTeX ") and allowed five response options, from "Strongly Agree" to "Strongly Disagree". <a href="#tab_background"> </a> shows the percentage of users who claimed to be familiar with a range of technologies (by selecting "Agree" or "Strongly Agree").
+                
+               </p>
+                <figure id="tab_background">
+                    <table>
+                        <tr>
+                            <th>Year</th>
+                            <th>MS Word</th>
+                            <th>OO Writer</th>
+                            <th>LaTeX</th>
+                            <th>HTML</th>
+                            <th>XML</th>
+                            <th>RelaxNG</th>
+                            <th>SW</th>
+                            <th>RDFa</th>
+                            <th>Turtle</th>
+                            <th>JSON-LD</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>2015</p>
+                            </td>
+                            <td>
+                                <p>33%</p>
+                            </td>
+                            <td>
+                                <p>33%</p>
+                            </td>
+                            <td>
+                                <p>83%</p>
+                            </td>
+                            <td>
+                                <p>83%</p>
+                            </td>
+                            <td>
+                                <p>100%</p>
+                            </td>
+                            <td>
+                                <p>67%</p>
+                            </td>
+                            <td>
+                                <p>83%</p>
+                            </td>
+                            <td>
+                                <p>100%</p>
+                            </td>
+                            <td>
+                                <p>100%</p>
+                            </td>
+                            <td>
+                                <p>50%</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>2016</p>
+                            </td>
+                            <td>
+                                <p>57%</p>
+                            </td>
+                            <td>
+                                <p>0%</p>
+                            </td>
+                            <td>
+                                <p>71%</p>
+                            </td>
+                            <td>
+                                <p>71%</p>
+                            </td>
+                            <td>
+                                <p>71%</p>
+                            </td>
+                            <td>
+                                <p>29%</p>
+                            </td>
+                            <td>
+                                <p>57%</p>
+                            </td>
+                            <td>
+                                <p>57%</p>
+                            </td>
+                            <td>
+                                <p>57%</p>
+                            </td>
+                            <td>
+                                <p>43%</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>AVR</p>
+                            </td>
+                            <td>
+                                <p>40%</p>
+                            </td>
+                            <td>
+                                <p>13%</p>
+                            </td>
+                            <td>
+                                <p>67%</p>
+                            </td>
+                            <td>
+                                <p>67%</p>
+                            </td>
+                            <td>
+                                <p>73%</p>
+                            </td>
+                            <td>
+                                <p>40%</p>
+                            </td>
+                            <td>
+                                <p>60%</p>
+                            </td>
+                            <td>
+                                <p>67%</p>
+                            </td>
+                            <td>
+                                <p>77%</p>
+                            </td>
+                            <td>
+                                <p>40%</p>
+                            </td>
+                        </tr>
+                    </table>
+                    <figcaption>User background for SAVE-SD 2015, SAVE-SD 2016.</figcaption>
+                </figure>
+                <p>In 2015, the authors were mainly from the Semantic Web community and therefore
+                    familiar with technologies such as RDFa and Turtle. Most of them knew how to
+                    correctly annotate an HTML file and understood the advantages of including
+                    semantic relationships in the paper. They also commonly used LaTeX rather than
+                    Microsoft Word or OpenOffice Writer. This suggests that they were acquainted
+                    with WYSIWYG editors and had experience with complex formats. A qualitative
+                    analysis of the survey answers confirms this intuition; for example, an author
+                    remarked: <q>I am used to writing papers in LaTeX so I do not want to bother
+                        with formatting and in that sense RASH is similar</q>.</p>
+                <p>In 2016 the situation changed and only 57% of the users were familiar with
+                    semantic technologies. In addition, even if most of them knew how to use LaTex,
+                    the majority of them had experience also with Microsoft Word. It seems thus that
+                    RASH started to interest also less technical users with different research
+                    backgrounds.</p>
+            </section>
+
+            <section>
+                <h1>User survey</h1>
+                <p>We assessed the strengths and weaknesses of RASH by means of six open questions. We
+                    summarize here the answers of both authors and reviewers for the 2015 and 2016
+                    workshops. The reviewers answered only questions 2, 3, 4 and 5. Note that the
+                    questions were exactly the same in both editions and none of the users 
+                    partecipated in both the surveys.</p>
+                <section>
+                    <h1>SAVE-SD 2015 Survey</h1>
+                    <ul>
+                        <li>
+                            <p>
+                                <em>[Q1] Why did you choose the RASH format for your paper?</em>
+                            </p>
+                            <p>Four authors answered that the main reason was to try it out, mostly
+                                because they <q>supported the idea of publishing academic papers as
+                                    HTML</q> and were convinced that <q>PDF should be replaced</q>.
+                                Two of them added that they were motivated by the possibility of
+                                adding semantic annotations to their papers.</p>
+                        </li>
+                        <li>
+                            <p>
+                                <em>[Q2] How effectively did RASH support you in writing/reviewing
+                                    the paper?</em>
+                            </p>
+                            <p>The majority of the authors suggested that some tasks, such as
+                                setting up the bibliography, were still cumbersome. They added that
+                                the development of tools that could solve these issues and hide the
+                                technical details from the common users would be very important for a
+                                broader adoption. The reviewers remarked that their experience was
+                                very similar to reviewing a paper in PDF format and did not present
+                                any particular challenge (e.g., <q>did not have many features that
+                                    would distinguish it from a PDF</q>, <q>it met all of my needs
+                                    and was easy to use</q>).</p>
+                        </li>
+                        <li>
+                            <p>
+                                <em>[Q3] What were the most useful features of RASH to help you
+                                    writing/reviewing the paper?</em>
+                            </p>
+                            <p>The authors listed a number of functionalities including the multiple
+                                graphical layouts (2 authors), the support of RDFa annotations (2)
+                                and the built-in validation (1). The ability to display the paper
+                                according to different layouts was praised also by reviewers.</p>
+                        </li>
+                        <li>
+                            <p>
+                                <em>[Q4] What were the main weaknesses that RASH exhibited in
+                                    supporting the writing/reviewing of the paper?</em>
+                            </p>
+                            <p>Most authors suggested that the handling of bibliography, figures and
+                                captions should be improved. Half of them also pointed out that the
+                                manual insertion of semantic annotations was cumbersome and a large
+                                amount of RDFa <q>introduces a bit of confusion in the paper</q>. An
+                                author observed that using the word count as a limit in the RASH
+                                venues rather than the number of pages introduces the issue of
+                                possibly exceeding the editor limits. Most reviewers did not report
+                                any problem in using RASH for assessing a paper. However, one of
+                                them noted that it still lacked a menu for easily navigating the
+                                different sections, as PDF files instead support.</p>
+                        </li>
+                        <li>
+                            <p>
+                                <em>[Q5] Can you think of any additional features to be included in
+                                    RASH that would have helped you to write/review the paper?</em>
+                            </p>
+                            <p>The majority of authors suggested that the aforementioned limitations
+                                were mainly due to the use of an HTML editor, requesting the development of a
+                                WYSIWYG editor or a tool for converting from ODT
+                                to RASH. A user also suggested developing a tool for graphically
+                                showing the semantic annotations, as <q>what is linked to what, in
+                                    order to check the correctness of assertions</q> and a reviewer
+                                advised to implement a way to easily access the different
+                                sections of the document.</p>
+                        </li>
+                        <li>
+                            <p>
+                                <em>[Q6] Would you use RASH regularly for writing your academic
+                                    papers?</em>
+                            </p>
+                            <p>Five out of six authors answered they would like to keep using RASH.
+                                Most of them, however, added that this would also depend on the
+                                creation of a better editor and a solid array of tools for managing
+                                technical details and converting standard formats for writing a
+                                research paper to and from RASH.</p>
+                        </li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h1>SAVE-SD 2016 Survey</h1>
+                    <ul>
+                        <li>
+                            <p>
+                                <em>[Q1] Why did you choose the RASH format for your paper?</em>
+                            </p>
+                            <p>As with the 2015 results, the majority of the authors (4) claimed
+                                that they adopted it for trying a new format, three authors because
+                                they were motivated by the workshop and three because they actively
+                                support the ideas behind RASH.</p>
+                        </li>
+                        <li>
+                            <p>
+                                <em>[Q2] How effectively did RASH support you in writing/reviewing
+                                    the paper?</em>
+                            </p>
+                            <p>Five users wrote the papers directly in RASH and only one used Open
+                                Office and then converted it with ROCS. In the first
+                                group, one user was positive, one neutral, and three suggested the
+                                need for a WYSIWYG editor, since <q>writing in html is not so
+                                    effective</q> and <q>not everyone [of the co-authors] knew how
+                                    to validate against the schema</q>. In particular, it was
+                                suggested the need for a Microsoft Word converter, since the ODT
+                                produced by Microsoft Word could not be processed by ROCS. As in
+                                2015, the reviewers did not find many differences with respect to
+                                PDF papers. One of them claimed to actually prefer RASH since it
+                                    <q>makes better use of the page space</q>.</p>
+                        </li>
+                        <li>
+                            <p>
+                                <em>[Q3] What were the most useful features of RASH to help you
+                                    writing/reviewing the paper?</em>
+                            </p>
+                            <p>The authors mentioned a variety of different features including the
+                                formatting semantics (<q>no worries about section and layout</q>),
+                                the bibliographic reference management and the ability to display
+                                the paper according to different layouts. A reviewer also praised
+                                the ability to convert RASH to PDF.</p>
+                        </li>
+                        <li>
+                            <p>
+                                <em>[Q4] What were the main weaknesses that RASH exhibited in
+                                    supporting the writing/reviewing of the paper?</em>
+                            </p>
+                            <p>Differently from 2015, the authors had no particular problem with the
+                                handling of bibliography, figures, and captions. However, most of them
+                                 (5) remarked that directly writing the HTML code was not trivial.
+                                Three of them suggested solving the problem by introducing a WYSIWYG
+                                editor, while two of them suggested creating new converters to
+                                translate LaTeX and Microsoft Word into RASH. One user also flagged
+                                that the visualization of RASH document can change in different
+                                browsers. The reviewers, as in 2015, did not report any particular
+                                problem in using RASH.</p>
+                        </li>
+                        <li>
+                            <p>
+                                <em>[Q5] Can you think of any additional features to be included in
+                                    RASH that would have helped you to write/review the paper?</em>
+                            </p>
+                            <p>Consistently with the aforementioned weaknesses and the 2015 results
+                                the users called for the creation of a WYSIWYG editor (3) and a way
+                                to convert from LaTex and Microsoft Words (3). In addition, a user
+                                suggested a tool for automatically generating a bibliography,
+                                similar to BibTeX.</p>
+                        </li>
+                        <li>
+                            <p>
+                                <em>[Q6] Would you use RASH regularly for writing your academic
+                                    papers?</em>
+                            </p>
+                            <p>Three authors asserted that they would be happy to keep using RASH, 
+                                two of them that they were ready to use
+                                it again, depending on its development, and only one was negative
+                                about it.</p>
+                        </li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h1>RASH usability</h1>
+                    <p>We also performed a quantitative analysis of the usability of RASH,
+                        using the System Usability Scale (SUS) questionnaire<a href="#sus"> </a>. The scores are acceptable, though not very high, especially if we
+                        consider that all authors but one edited RASH files directly with
+                        text/XML editors. Users perceived even a 'vanilla RASH' as acceptable,
+                        though they need more sophisticated converters as remarked in the open
+                        questions of the survey.</p>
+                    <p>RASH yielded a mean score of 62.7±11.9, slightly lower than the average SUS
+                        score (68). However, SUS scores varied dramatically according to the person's 
+                        background. <a href="#fig_evaluation"> </a> shows the results of different
+                        categories of expertize<a href="#fn15"> </a> in HTML, LateX, and Semantic Web Technologies
+                        (SWT), which appear correlated with the average SUS scores (respectively
+                            <em>r</em> = 0.78, 0.97, 0.99). Users with a strong expertize in LaTeX
+                        and SWT yielded significantly better SUS scores than the other authors, while authors with HTML
+                        expertize yielded only slightly better scores. For this reason, authors from
+                        2015, who as previously discussed had a higher expertize in these categories
+                        obtained an average SUS score of 69.6±11.9, while the authors from 2016
+                        yielded 57.1±9.7. However, the difference is not statistically significant
+                        because the two samples are small and the test power is low.</p>
+                    <figure id="fig_evaluation">
+                        <p>
+                            <img src="img/evaluation.png" alt="The SUS score of the subjects participating in the evaluation compared with thier experience in using HTML, LaTeX and other Semantic Web Technologies."/>
+                        </p>
+                        <figcaption>User expertize in HTML, LaTeX and Semantic Web Technologies
+                            versus average SUS score.</figcaption>
+                    </figure>
+                    <p>These results further confirm that most users with limited expertize in
+                        non-WYSIWYG editors and semantic technologies find it unfeasible to write HTML
+                        directly, even in a simplified form.</p>
+                </section>
+            </section>
+
+            <section id="sec_annotation_evaluation">
+                <h1>Analysis of RDF annotations in RASH documents</h1>
+                <p>To complete the previous analysis, we also studied the nature of the semantic annotations in
+                    RASH papers. We focused on a sample of 1751 annotations obtained from 11 papers published in SAVE-SD 2015 and 2016.
+                    The number of statements in a single paper was found to range from 24 to 903,
+                    yielding a median value of 46 (25th percentile 34, 75th percentile 175). We
+                    extracted all the RDF statements by running the <a href="https://www.w3.org/2012/pyRdfa/">W3C RDFa 1.1 Distiller service</a> on
+                    each article. We then considered only the statements that used http-based
+                    entities as predicates, or their objects if used for typing resources. The data
+                    are organised in several CSV files and have been obtained by running a Python
+                    script we developed for gathering the data used in this evaluation. The script and all the aforementioned  data have been made available at <a href="#rash-eval"> </a>.</p>
+                <p>The first goal of the study was to determine the prevalent vocabularies and how
+                    much they were used in the average paper. The left panel of <a href="#fig1"> </a>
+                    shows the common vocabularies. Schema.org and PRISM are actually enforced by
+                    RASH: the first is used for standard metadata such as emails, affiliations and
+                    organization names and the second for keywords. In addition, a quantity of XHTML
+                    statements was automatically extracted when processing DPUB-ARIA roles <a href="#dpub"> </a>. Thus we will not consider such vocabularies in the rest
+                    of the evaluation. The other common vocabularies are Dublin Core, which appears
+                    in 82% of the papers, FOAF (27%) and the SPAR ontologies <a href="#peroni-spar"> </a>, such as FABIO (36%) and CITO (27%) <a href="#peroni-cito"> </a>. The right
+                    panel of <a href="#fig1"> </a> illustrates the average number of statement for
+                    each of these vocabularies. Dublin Core characterizes the highest number of
+                    annotation (9.4), followed by FOAF (7.4) and FABIO (6.4).</p>
+                <figure id="fig1">
+                    <p>
+                        <img src="img/fig1.png" alt="Vocabularies and number of statements in a RASH paper"/>
+                    </p>
+                    <figcaption>Percentage of papers and average number of statements using a
+                        vocabulary</figcaption>
+                </figure>
+                <figure id="fig2">
+                    <p>
+                        <img src="img/fig2.png" alt="Vocabulary entities in a RASH paper"/>
+                    </p>
+                    <figcaption>Average percentage of vocabulary entities in a RASH paper (excluding
+                        the mandatory ones).</figcaption>
+                </figure>
+                <p>We also performed a more fine-grained analysis considering the amount of entities
+                    of these vocabularies within the various RDF statements. The goal was to
+                    understand the percentage of contribution that the various entities provide (on
+                    average) to the statements of the document analysed. As expected, the entities
+                    that contribute to about 60% of the statements are either those that are obliged
+                    by RASH (<code>prism:keyword</code> 6.9%, <code>schema:affiliation</code> 5.7%,
+                        <code>schema:name</code> 5.3%, and <code>schema:email</code> 4.7%) or those
+                    automatically extracted by processing the DPUB roles included, mandatorily, in
+                    the documents (<code>xhtml:role</code> 38%). Excluding these, the following top
+                    ten entities, shown in <a href="#fig2"> </a>, cover about 20% of the
+                    statements.</p>
+                <p>Among these entities, there are three classes describing three diverse but
+                    interlinked kinds of objects, i.e. people (<code>foaf:Person</code>) authoring a
+                    research work (<code>fabio:ResearchPaper</code>) and the sentences
+                        (<code>doco:Sentence</code>) therein contained. The other seven entities are
+                    three object properties – two of them (<code>pav:authoredBy</code> and
+                        <code>pattern:contains</code>) provide the links between the three
+                    aforementioned classes, while the other, i.e., <code>cito:cites</code>,
+                    describes citation links between papers – and four data properties – used for
+                    providing additional metadata about the entities (<code>dcterms:title</code>,
+                        <code>dcterms:bibliographicCitation</code>, <code>foaf:name</code>) and for
+                    describing bunches of textual content of the sentences
+                        (<code>c4o:hasContent</code>).</p>
+            </section>
+
+            <section>
+                <h1>Discussion</h1>
+                <p>The evaluation study confirmed that RASH is ready to be be  be adopted in workshops,
+                    conferences, and journals and can be quickly learnt by researchers who are 
+                    already familiar with HTML. However, it also highlighted some issues in the adoption of
+                    HTML formats, especially by less technically savvy users.</p>
+                <p>Interestingly, the 2016 survey showed that RASH is being tried also by users
+                    unfamiliar with semantic web technology. While the expansion of the user base
+                    represents a positive development, it also yields a number of challenges. The
+                    mass of authors accustomed to WYSIWYG editors such as Microsoft Word or
+                    OpenOffice Writer, tend to have difficulties with HTML editors. In addition,
+                    since research papers are often written by multiple authors, it is usually
+                    simpler to use the most well-known solutions. For these reasons, we need to
+                    offer the authors who currently cannot or do not want to change their workflow the tools
+                    for converting their favourite format to RASH and annotate the resulting paper.
+                    While ODT was a first step in this direction, it is imperative to be also able
+                    to process DOCX and LaTeX. A second important issue is that authors who are not
+                    expert in semantic technologies can find it hard to correctly annotate their
+                    papers. Hence, we also need to use and/or develop simple tools for helping authors in this
+                    phase – such as the <a href="http://osde.openlinksw.com/">OpenLink Structured Data Editor</a>. The introduction of these solutions will be critical for motivating users
+                    to adopt HTML-based approaches and for creating a robust framework that can be
+                    used by expert and common users alike.</p>
+                <p>As far as the analysis of the RDF annotations in RASH documents is concerned, the
+                    outcomes highlighted that the users decided to adopt a few
+                    well-known standard vocabularies, rather than using a multiplicity of different
+                    solutions. The most used vocabularies other than Schema.org and PRISM (used by default by RASH), are Dublin Core, FOAF, and the SPAR ontologies.
+                    However, the outcomes of our evaluation generally show a quite low number of
+                    statements specified by the authors. This behaviour could derive from the lack
+                    of appropriate support for the annotation of RASH papers with RDF data. In
+                    addition, this low number seems not to be related to the research community the
+                    authors work in. For instance, several of the papers written by Semantic Web
+                    experts do not include any RDF statements other than those enforced by RASH.</p>
+            </section>
+        </section>
+
+        <section id="sec_conclusions">
+            <h1>Conclusions</h1>
+            <p>In this paper we have introduced <em>RASH</em>, a markup language defined as a subset
+                of HTML for writing scientific articles, and the <em>RASH Framework</em>, a set of
+                specifications and tools for writing articles in RASH. In particular, we
+                have discussed the rationale behind the development of RASH, and we have presented
+                the language and the validation/visualisation/conversion/extraction tools developed so far. </p>
+            <p>The goal of the paper was also to investigate the applicability and the
+                potentialities of RASH, though the evaluation of its
+                adoption in two SAVE-SD workshops. To the best of our
+                knowledge, this is the first empirical evaluation on the adoption of HTML-based
+                languages for writing scientific papers. The experiments proved that RASH can be
+                successfully used for workshops and conferences, with a good acceptance by the
+                authors and a smooth integration in the existing publishing process. </p>
+            <p>As immediate future developments, we plan to develop tools for automating the process of semantic
+				enrichment of RASH documents. For instance, we are currently working on the automatic identification of section rhetorics and citation functions so as to describe them according to two SPAR Ontologies <a href="#peroni-spar"> </a>, i.e. the <a href="http://purl.org/spar/doco">Document Component
+				    Ontology (DoCO)</a> and the <a href="http://purl.org/spar/cito">Citation Typing Ontology
+                    (CiTO)</a> respectively. We are also developing a Web tool for validating RASH document so as to spot possible syntactic errors more easily. 
+            </p>
+			<p>We intend to further develop the RASH framework. In first instance, we are working on more sophisticated
+                authoring tools and converters. For instance, we are currently developing additional XSLT documents in order to convert RASH documents into several different LaTeX
+                formats for scholarly communications – such as IEEE conference proceedings and IOS Press – as well as into EPUB for easing its
+                (offline) portability in mobile devices, which is something that would guarantee a better archival and accessibility of the whole document including its figures, CSS files, and JS scripts.</p>            
+            <p>We are also experimenting techniques for automatically
+                generating accessible graphs from data contained in a referenced CSV file. Some results of this experimentation are already discussed in <a href="#rash-csv"> </a>.</p>
+        </section>
+
+        <!-- Acknowledgements -->
+        <section role="doc-acknowledgements">
+            <h1>Acknowledgments</h1>
+            <p>We would like to thank <a href="http://csarven.ca/">Sarven Capadisli</a> for our
+                inspiring discussions on the topic, all the authors and the reviewers of the <a href="http://cs.unibo.it/save-sd/2015/accepted-papers.html">accepted papers of
+                    the SAVE-SD 2015</a> and <a href="http://cs.unibo.it/save-sd/2016/accepted-papers.html">the SAVE-SD 2016</a>
+                workshops for having provided us useful suggestions and insights for improving RASH
+                and the related tools, as well as all the other early adopters of RASH. We would
+                also like to thank the other two organisers of the past two edition of SAVE-SD, i.e.
+                    <a href="http://www.oerc.ox.ac.uk/people/jun-zhao">Jun Zhao</a> and <a href="http://www.oerc.ox.ac.uk/people/alejandra">Alejandra Gonzalez-Beltran</a>
+                for supporting us in the adoption of RASH as possible HTML submission format. In
+                addition, we are particularly grateful to all the GitHub users that suggested and
+                introduced new features to RASH and developed the tools included in its Framework: <a href="https://twitter.com/illbexyz">Alberto Nicoletti</a>, <a href="https://twitter.com/titengodocchio">Vincenzo Rubano</a>, <a href="https://sideshowbarker.net/">Mike Smith</a>, <a href="https://twitter.com/spino9330">Gianmarco Spinaci</a>, <a href="http://ruben.verborgh.org">Ruben Verborgh</a>.</p>
+        </section>
+
+        <!-- References -->
+        <section role="doc-bibliography">
+            <h1>References</h1>
+            <ul about="" rel="cito:cites">
+                <li id="html5" about="html5-expression" typeof="fabio:WebContent" property="frbr:realizationOf" resource="html5-work" role="doc-biblioentry">
+                    <p about="html5-expression" property="dcterms:bibliographicCitation">Hickson I., Berjon R., Faulkner S., Leithead T., Doyle Navara E., O'Connor E., Pfeiffer S. (2014). HTML5: A vocabulary and associated APIs for HTML and XHTML. W3C Recommendation, 28 October 2014. World Wide Web Consortium. <a about="html5-work" typeof="fabio:TechnicalStandard" property="fabio:hasURL" content="http://www.w3.org/TR/html5/" href="http://www.w3.org/TR/html5/">http://www.w3.org/TR/html5/</a></p>
+                </li>
+                <li id="html4" about="html4-expression" typeof="fabio:WebContent" property="frbr:realizationOf" resource="html4-work" role="doc-biblioentry">
+                    <p about="html4-expression" property="dcterms:bibliographicCitation">Raggett D., Le Hors A., Jacobs I. (1999). HTML 4.01 Specification. W3C Recommendation, 24 December 1999. World Wide Web Consortium. <a about="html4-work" typeof="fabio:TechnicalStandard" property="fabio:hasURL" content="http://www.w3.org/TR/html401/" href="http://www.w3.org/TR/html401/">http://www.w3.org/TR/html401/</a></p>
+                </li>
+                <li id="ooxml" about="ooxml-expression" typeof="fabio:WebContent" property="frbr:realizationOf" resource="ooxml-work" role="doc-biblioentry">
+                    <p about="ooxml-expression" property="dcterms:bibliographicCitation">JTC1/SC34 WG 4. (2011). ISO/IEC 29500-1:2011 - Information technology - Document description and processing languages - Office Open XML File Formats - Part 1: Fundamentals and Markup Language Reference. Geneva, Switzerland: International Organization for Standardization. <a about="ooxml-work" typeof="fabio:TechnicalStandard" property="fabio:hasURL" content="http://www.iso.org/iso/iso_catalogue/catalogue_tc/catalogue_detail.htm?csnumber=59575" href="http://www.iso.org/iso/iso_catalogue/catalogue_tc/catalogue_detail.htm?csnumber=59575">http://www.iso.org/iso/iso_catalogue/catalogue_tc/catalogue_detail.htm?csnumber=59575</a></p>
+                </li>
+                <li id="odt" about="odt-expression" typeof="fabio:WebContent" property="frbr:realizationOf" resource="odt-work" role="doc-biblioentry">
+                    <p about="odt-expression" property="dcterms:bibliographicCitation">JTC1/SC34 WG 6. (2006). ISO/IEC 26300:2006 - Information technology - Open Document Format for Office Applications (OpenDocument) v1.0. Geneva, Switzerland: International Organization for Standardization. <a about="odt-work" typeof="fabio:TechnicalStandard" property="fabio:hasURL" content="http://www.iso.org/iso/iso_catalogue/catalogue_tc/catalogue_detail.htm?csnumber=43485" href="http://www.iso.org/iso/iso_catalogue/catalogue_tc/catalogue_detail.htm?csnumber=43485">http://www.iso.org/iso/iso_catalogue/catalogue_tc/catalogue_detail.htm?csnumber=43485</a></p>
+                </li>
+                <li id="jats" about="jats-expression" typeof="fabio:WebContent" property="frbr:realizationOf" resource="jats-work" role="doc-biblioentry">
+                    <p about="jats-expression" property="dcterms:bibliographicCitation">National Information Standards Organization. (2012). JATS: Journal Article Tag Suite. American National Standard No. ANSI/NISO Z39.96-2012, 9 August 2012. <a about="jats-work" typeof="fabio:TechnicalStandard" property="fabio:hasURL" content="http://www.niso.org/apps/group_public/download.php/10591/z39.96-2012.pdf" href="http://www.niso.org/apps/group_public/download.php/10591/z39.96-2012.pdf">http://www.niso.org/apps/group_public/download.php/10591/z39.96-2012.pdf</a></p>
+                </li>
+                <li id="docbook" about="docbook-expression" typeof="fabio:WebContent" property="frbr:realizationOf" resource="docbook-work" role="doc-biblioentry">
+                    <p about="docbook-expression" property="dcterms:bibliographicCitation">Walsh N. (2009). The DocBook Schema Version 5.0. OASIS Standard, 1 November 2009. Burlington, Massachusetts, US: Organization for the Advancement of Structured Information Standards. <a about="jats-work" typeof="fabio:TechnicalStandard" property="fabio:hasURL" content="http://docs.oasis-open.org/docbook/specs/docbook-5.0-spec-os.html" href="http://docs.oasis-open.org/docbook/specs/docbook-5.0-spec-os.html">http://docs.oasis-open.org/docbook/specs/docbook-5.0-spec-os.html</a></p>
+                </li>
+                <li id="shotton-sempub" about="shotton-sempub-expression" typeof="fabio:JournalArticle" property="frbr:realizationOf" resource="shotton-sempub-work" role="doc-biblioentry">
+                    <p about="shotton-sempub-expression" property="dcterms:bibliographicCitation">Shotton D., Portwin K., Klyne G., Miles A. (2009). Adventures in Semantic Publishing: Exemplar Semantic Enhancements of a Research Article. PLoS Computational Biology, 5(4): e1000361. <a about="shotton-sempub-work" typeof="fabio:ResearchPaper" href="https://doi.org/10.1371/journal.pcbi.1000361">https://doi.org/<span about="shotton-sempub-expression" property="prism:doi">10.1371/journal.pcbi.1000361</span></a></p>
+                </li>
+                <li id="pettifer-sempub" about="pettifer-sempub-expression" typeof="fabio:JournalArticle" property="frbr:realizationOf" resource="pettifer-sempub-work" role="doc-biblioentry">
+                    <p about="pettifer-sempub-expression" property="dcterms:bibliographicCitation">Pettifer S., McDermott P., Marsh J., Thorne D., Villeger A., Attwood T. K. (2011). Ceci n'est pas un hamburger: modelling and representing the scholarly article. Learned Publishing, 24(3): 207–220. <a about="pettifer-sempub-work" typeof="fabio:ResearchPaper" href="https://doi.org/10.1087/20110309">https://doi.org/<span about="pettifer-sempub-expression" property="prism:doi">10.1087/20110309</span></a></p>
+                </li>
+                <li id="rdfa" about="rdfa-expression" typeof="fabio:WebContent" property="frbr:realizationOf" resource="rdfa-work" role="doc-biblioentry">
+                    <p about="rdfa-expression" property="dcterms:bibliographicCitation">Sporny M. (2015). HTML+RDFa 1.1: Support for RDFa in HTML4 and HTML5. W3C Recommendation 17 March 2015. World Wide Web Consortium. <a about="rdfa-work" typeof="fabio:TechnicalStandard" property="fabio:hasURL" content="http://www.w3.org/TR/rdfa-in-html/" href="http://www.w3.org/TR/rdfa-in-html/">http://www.w3.org/TR/rdfa-in-html/</a></p>
+                </li>
+                <li id="patterns" about="patterns-expression" typeof="fabio:JournalArticle" property="frbr:realizationOf" resource="patterns-work" role="doc-biblioentry">
+                    <p about="patterns-expression" property="dcterms:bibliographicCitation">Di Iorio A., Peroni S., Poggi F., Vitali F. (2014). Dealing with structural patterns of XML documents. Journal of the American Society for Information Science and Technology, 65(9): 1884–1900. <a about="patterns-work" typeof="fabio:ResearchPaper" href="https://doi.org/10.1002/asi.23088">https://doi.org/<span about="patterns-expression" property="prism:doi">10.1002/asi.23088</span></a></p>
+                </li>
+                <li id="patterns-recognising" about="patterns-recognising-expression" typeof="fabio:ConferencePaper" property="frbr:realizationOf" resource="patterns-recognising-work" role="doc-biblioentry">
+                    <p about="patterns-recognising-expression" property="dcterms:bibliographicCitation">Di Iorio, A.,  Peroni, S., Poggi, F., Vitali, F. (2012). A first approach to the automatic recognition of structural patterns in XML documents. In Proceedings of the 2012  ACM symposium on Document Engineering. ACM. <a about="patterns-recognising-work" typeof="fabio:ResearchPaper" href="https://doi.org/10.1145/2494266.2494319">https://doi.org/<span about="patterns-recognising-expression" property="prism:doi">10.1145/2494266.2494319</span></a></p>
+                </li>
+                <li id="doco-recognising" about="doco-recognising-expression" typeof="fabio:ConferencePaper" property="frbr:realizationOf" resource="doco-recognising-work" role="doc-biblioentry">
+                    <p about="doco-recognising-expression" property="dcterms:bibliographicCitation">Di Iorio, A.,  Peroni, S., Poggi, F., Vitali, F., Shotton, D. (2013). Recognising document components in XML-based academic articles. In Proceedings of the 2013 ACM symposium on  Document engineering. ACM. <a about="doco-recognising-work" typeof="fabio:ResearchPaper" href="https://doi.org/10.1145/2361354.2361374">https://doi.org/<span about="doco-recognising-expression" property="prism:doi">10.1145/2361354.2361374</span></a></p>
+                </li>
+                <li id="peroni-jats" about="peroni-jats-expression" typeof="fabio:ConferencePaper" property="frbr:realizationOf" resource="peroni-jats-work" role="doc-biblioentry">
+                    <p about="peroni-jats-expression" property="dcterms:bibliographicCitation">Peroni S., Lapeyre D. A., Shotton D. (2012). From Markup to Linked Data: Mapping NISO JATS v1.0 to RDF using the SPAR (Semantic Publishing and Referencing) Ontologies. In Proceeding of the Journal Article Tag Suite Conference 2012 (JATS-Con 2012). Bethesda, Maryland, USA: National Center for Biotechnology Information. <span about="peroni-jats-work" typeof="fabio:ResearchPaper"><a about="peroni-spar-expression" rel="fabio:hasRepresentation" href="http://www.ncbi.nlm.nih.gov/books/NBK100491/">http://www.ncbi.nlm.nih.gov/books/NBK100491/</a></span></p>
+                </li>
+                <li id="turtle" about="turtle-expression" typeof="fabio:WebContent" property="frbr:realizationOf" resource="turtle-work" role="doc-biblioentry">
+                    <p about="turtle-expression" property="dcterms:bibliographicCitation">Prud'hommeaux E., Carothers G. (2014). Turtle - Terse RDF Triple Language. W3C Recommendation, 25 February 2014. World Wide Web Consortium. <a about="turtle-work" typeof="fabio:TechnicalStandard" property="fabio:hasURL" content="http://www.w3.org/TR/turtle/" href="http://www.w3.org/TR/turtle/">http://www.w3.org/TR/turtle/</a></p>
+                </li>
+                <li id="jsonld" about="jsonld-expression" typeof="fabio:WebContent" property="frbr:realizationOf" resource="jsonld-work" role="doc-biblioentry">
+                    <p about="jsonld-expression" property="dcterms:bibliographicCitation">Sporny M., Kellogg G., Lanthaler M. (2014). JSON-LD 1.0 - A JSON-based Serialization for Linked Data. W3C Recommendation, 16 January 2014. World Wide Web Consortium. <a about="jsonld-work" typeof="fabio:TechnicalStandard" property="fabio:hasURL" content="https://www.w3.org/TR/json-ld/" href="https://www.w3.org/TR/json-ld/">https://www.w3.org/TR/json-ld/</a></p>
+                </li>
+                <li id="xslt2" about="xslt2-expression" typeof="fabio:WebContent" property="frbr:realizationOf" resource="xslt2-work" role="doc-biblioentry">
+                    <p about="xslt2-expression" property="dcterms:bibliographicCitation">Kay M. (2007). XSL Transformations (XSLT) Version 2.0. W3C Recommendation, 23 January 2007. World Wide Web Consortium. <a about="xslt2-work" typeof="fabio:TechnicalStandard" property="fabio:hasURL" content="http://www.w3.org/TR/xslt20/" href="http://www.w3.org/TR/xslt20/">http://www.w3.org/TR/xslt20/</a></p>
+                </li>
+                <li id="doco" about="doco-expression" typeof="fabio:JournalArticle" property="frbr:realizationOf" resource="doco-work" role="doc-biblioentry">
+                    <p about="doco-expression" property="dcterms:bibliographicCitation">Constantin A., Peroni S., Pettifer S., Shotton D., Vitali F. (2016). The Document Component Ontology (DoCO). In Semantic Web, 7 (2): 167-181. <a about="doco-work" typeof="fabio:ResearchPaper" href="https://doi.org/10.3233/SW-150177">https://doi.org/<span about="doco-expression" property="prism:doi">10.3233/SW-150177</span></a> (<span about="doco-expression" typeof="fabio:ResearchPaper">Open Access at <a about="doco-expression" property="fabio:hasRepresentation" href="http://www.semantic-web-journal.net/system/files/swj1016.pdf">http://www.semantic-web-journal.net/system/files/swj1016.pdf</a></span>)</p>
+                </li>
+                <li id="force11" about="force11-expression" typeof="fabio:WhitePaper" property="frbr:realizationOf" resource="force11-work" role="doc-biblioentry">
+                    <p about="force11-expression" property="dcterms:bibliographicCitation">Bourne P. E., Clark T., Dale R., de Waard A., Herman I., Hovy E. H., Shotton D. (2011). FORCE11 White Paper: Improving The Future of Research Communications and e-Scholarship. White paper, 28 October 2011. FORCE11. <a about="force11-work" typeof="fabio:MeetingReport" property="fabio:hasURL" content="https://www.force11.org/white_paper" href="https://www.force11.org/white_paper">https://www.force11.org/white_paper</a></p>
+                </li>
+                <li id="linked-research" about="linked-research-expression" typeof="fabio:ConferencePaper" property="frbr:realizationOf" resource="linked-research-work" role="doc-biblioentry">
+                    <p about="linked-research-expression" property="dcterms:bibliographicCitation">Capadisli S., Riedl R., Auer S. (2015). Enabling Accessible Knowledge. In Proceedings of the 2015 International Conference for E-Democracy and Open Government (CeDEM 2015). Krems, Austria: Universität Krems. <span about="linked-research-work" typeof="fabio:ResearchPaper">Open Access at <a about="linked-research-expression" property="fabio:hasRepresentation" href="http://csarven.ca/enabling-accessible-knowledge">http://csarven.ca/enabling-accessible-knowledge</a></span></p>
+                </li>
+                <li id="scholmd" about="scholmd-expression" typeof="fabio:WebContent" property="frbr:realizationOf" resource="scholmd-work" role="doc-biblioentry">
+                    <p about="scholmd-expression" property="dcterms:bibliographicCitation">Lin T. T. Y., Beales G. (2015). ScholarlyMarkdown Syntax Guide. Guide, 31 January 2015. <a about="scholmd-work" typeof="fabio:InstructionalWork" property="fabio:hasURL" content="http://scholarlymarkdown.com/Scholarly-Markdown-Guide.html" href="http://scholarlymarkdown.com/Scholarly-Markdown-Guide.html">http://scholarlymarkdown.com/Scholarly-Markdown-Guide.html</a></p>
+                </li>
+                <li id="rdf" about="rdf-expression" typeof="fabio:WebContent" property="frbr:realizationOf" resource="rdf-work" role="doc-biblioentry">
+                    <p about="rdf-expression" property="dcterms:bibliographicCitation">Cyganiak R., Wood D., Lanthaler M. (2014). RDF 1.1 Concepts and Abstract Syntax. W3C Recommendation, 25 February 2014. World Wide Web Consortium. <a about="rdf-work" typeof="fabio:TechnicalStandard" property="fabio:hasURL" content="http://www.w3.org/TR/rdf11-concepts/" href="http://www.w3.org/TR/rdf11-concepts/">http://www.w3.org/TR/rdf11-concepts/</a></p>
+                </li>
+                <li id="peroni-spar" about="peroni-spar-expression" typeof="fabio:BookChapter" property="frbr:realizationOf" resource="peroni-spar-work" role="doc-biblioentry">
+                    <p about="peroni-spar-expression" property="dcterms:bibliographicCitation">Peroni S. (2014). The Semantic Publishing and Referencing Ontologies. In Semantic Web Technologies and Legal Scholarly Publishing: 121-193. Cham, Switzerland: Springer. <a about="peroni-spar-work" typeof="fabio:ResearchPaper" href="https://doi.org/10.1007/978-3-319-04777-5">https://doi.org/<span about="peroni-spar-expression" property="prism:doi">10.1007/978-3-319-04777-5_5</span></a> (Open Access at <a about="peroni-spar-expression" rel="fabio:hasRepresentation" href="http://speroni.web.cs.unibo.it/publications/peroni-2014-semantic-publishing-referencing.pdf">http://speroni.web.cs.unibo.it/publications/peroni-2014-semantic-publishing-referencing.pdf</a>)</p>
+                </li>
+                <li id="peroni-book" about="peroni-book-expression" typeof="fabio:Book" property="frbr:realizationOf" resource="peroni-book-work" role="doc-biblioentry">
+                    <p about="peroni-book-expression" property="dcterms:bibliographicCitation">Peroni S. (2014). Semantic Web Technologies and Legal Scholarly Publishing. Law, Governance and Technology Series 15. Cham, Switzerland: Springer. ISBN: <span property="prism:isbn">978-3-319-04776-8</span>. <a about="peroni-book-work" typeof="fabio:ResearchPaper" href="https://doi.org/10.1007/978-3-319-04777-5">https://doi.org/<span about="peroni-book-expression" property="prism:doi">10.1007/978-3-319-04777-5</span></a></p>
+                </li>
+                <li id="xmlschema" about="xmlschema-expression" typeof="fabio:WebContent" property="frbr:realizationOf" resource="xmlschema-work" role="doc-biblioentry">
+                    <p about="xmlschema-expression" property="dcterms:bibliographicCitation">Gao S., Sperberg-McQueen C. M., Thompson H. S. (2012). W3C XML Schema Definition Language (XSD) 1.1 Part 1: Structures. W3C Recommendation, 5 April 2012. World Wide Web Consortium. <a about="xmlschema-work" typeof="fabio:TechnicalStandard" property="fabio:hasURL" content="https://www.w3.org/TR/xmlschema11-1/" href="https://www.w3.org/TR/xmlschema11-1/">https://www.w3.org/TR/xmlschema11-1/</a></p>
+                </li>
+                <li id="rdfxml" about="rdfxml-expression" typeof="fabio:WebContent" property="frbr:realizationOf" resource="rdfxml-work" role="doc-biblioentry">
+                    <p about="rdfxml-expression" property="dcterms:bibliographicCitation">Gandon F., Schreiber G. (2014). RDF 1.1 XML Syntax. W3C Recommendation, 25 February 2014. World Wide Web Consortium. <a about="rdfxml-work" typeof="fabio:TechnicalStandard" property="fabio:hasURL" content="https://www.w3.org/TR/rdf-syntax-grammar/" href="https://www.w3.org/TR/rdf-syntax-grammar/">https://www.w3.org/TR/rdf-syntax-grammar/</a></p>
+                </li>
+                <li id="relaxng" about="relaxng-expression" typeof="fabio:WebContent" property="frbr:realizationOf" resource="relaxng-work" role="doc-biblioentry">
+                    <p about="relaxng-expression" property="dcterms:bibliographicCitation">Clark J., Makoto M. (2001). RELAX NG Specification. Committee Specification, 3 December 2001. OASIS. <a about="relaxng-expression" typeof="fabio:TechnicalStandard" rel="fabio:hasRepresentation" href="http://relaxng.org/spec-20011203.html">http://relaxng.org/spec-20011203.html</a></p>
+                </li>
+                <li id="dpub" about="dpub-expression" typeof="fabio:WebContent" property="frbr:realizationOf" resource="dpub-work" role="doc-biblioentry">
+                    <p about="dpub-expression" property="dcterms:bibliographicCitation">Garrish M., Siegman T., Gylling M., McCarron S. (2016). Digital Publishing WAI-ARIA Module 1.0. W3C Candidate Recommendation 15 December 2016. World Wide Web Consortium. <a about="dpub-work" typeof="fabio:TechnicalStandard" property="fabio:hasURL" content="https://www.w3.org/TR/dpub-aria-1.0/" href="https://www.w3.org/TR/dpub-aria-1.0/">https://www.w3.org/TR/dpub-aria-1.0/</a></p>
+                </li>
+                <li id="aria" about="aria-expression" typeof="fabio:WebContent" property="frbr:realizationOf" resource="aria-work" role="doc-biblioentry">
+                    <p about="aria-expression" property="dcterms:bibliographicCitation">Diggs J., Craig J., McCarron S., Cooper M. (2015). Accessible Rich Internet Applications (WAI-ARIA) 1.1. W3C Candidate Recommendation 27 October 2016. World Wide Web Consortium. <a about="aria-work" typeof="fabio:TechnicalStandard" property="fabio:hasURL" content="http://www.w3.org/TR/wai-aria-1.1/" href="http://www.w3.org/TR/wai-aria-1.1/">http://www.w3.org/TR/wai-aria-1.1/</a></p>
+                </li>
+                <li id="mathml" about="mathml-expression" typeof="fabio:WebContent" property="frbr:realizationOf" resource="mathml-work" role="doc-biblioentry">
+                    <p about="mathml-expression" property="dcterms:bibliographicCitation">Carlisle D., Ion P., Miner R. (2014). Mathematical Markup Language (MathML) Version 3.0 2nd Edition. W3C Recommendation 10 April 2014. World Wide Web Consortium <a about="mathml-work" typeof="fabio:TechnicalStandard" property="fabio:hasURL" content="http://www.w3.org/TR/MathML3/" href="http://www.w3.org/TR/MathML3/">http://www.w3.org/TR/MathML3/</a></p>
+                </li>
+                <li id="peroni-cito" about="peroni-cito-expression" typeof="fabio:JournalArticle" property="frbr:realizationOf" resource="peroni-cito-work" role="doc-biblioentry">
+                    <p about="peroni-cito-expression" property="dcterms:bibliographicCitation">Peroni S., Shotton D. (2012). FaBiO and CiTO: ontologies for describing bibliographic resources and citations. In Web Semantics, 17 (December 2012): 33-43. <a about="peroni-cito-work" typeof="fabio:ResearchPaper" href="https://doi.org/10.1016/j.websem.2012.08.001">https://doi.org/<span about="peroni-cito-expression" property="prism:doi">10.1016/j.websem.2012.08.001</span></a> (Open Access at <a about="peroni-cito-expression" rel="fabio:hasRepresentation" href="http://speroni.web.cs.unibo.it/publications/peroni-2012-fabio-cito-ontologies.pdf">http://speroni.web.cs.unibo.it/publications/peroni-2012-fabio-cito-ontologies.pdf</a>)</p>
+                </li>
+                <li id="diiorio-rocs" about="diiorio-rocs-expression" typeof="fabio:PosterPaper" property="frbr:realizationOf" resource="diiorio-rocs-work" role="doc-biblioentry">
+                    <p about="diiorio-rocs-expression" property="dcterms:bibliographicCitation">Di Iorio A., González Beltrán A., Osborne F., Peroni S., Poggi F., Vitali F. (2016). It ROCS!: The RASH Online Conversion Service. In WWW (Companion Volume) 2016: 25-26. <a about="diiorio-rocs-work" typeof="fabio:ResearchPaper" href="https://doi.org/10.1016/j.websem.2012.08.001">https://doi.org/<span about="diiorio-rocs-expression" property="prism:doi">10.1145/2872518.2889408</span></a> (Open Access at <a about="diiorio-rocs-expression" rel="fabio:hasRepresentation" href="https://rawgit.com/essepuntato/rash/master/papers/rash-poster-www2016.html">https://rawgit.com/essepuntato/rash/master/papers/rash-poster-www2016.html</a>)</p>
+                </li>
+                <li id="css3" about="css3-expression" typeof="fabio:WebContent" property="frbr:realizationOf" resource="css3-work" role="doc-biblioentry">
+                    <p about="css3-expression" property="dcterms:bibliographicCitation">Atkins Jr. T., Etemad E. J., Rivoal F. (2017). CSS Snapshot 2017. W3C Working Group Note 31 January 2017. World Wide Web Consortium. <a about="css3-work" typeof="fabio:TechnicalStandard" property="fabio:hasURL" content="http://www.w3.org/TR/MathML3/" href="https://www.w3.org/TR/css3-roadmap/">https://www.w3.org/TR/css3-roadmap/</a></p>
+                </li>
+                <li id="rash-eval" about="rash-eval-expression" typeof="fabio:DataFile" property="frbr:realizationOf" resource="rash-eval-work" role="doc-biblioentry">
+                    <p about="rash-eval-expression" property="dcterms:bibliographicCitation">Osborne F., Peroni S. (2016). Outcomes of SAVE-SD 2015 and 2016 questionnaires on RASH and analysis of RDF annotations in RASH papers. Figshare. <a about="rash-eval-work" typeof="fabio:Dataset" href="https://doi.org/10.6084/m9.figshare.3980463">https://doi.org/<span about="rash-eval-work" property="prism:doi">10.6084/m9.figshare.3980463</span></a></p>
+                </li>
+                <li id="scholarlyhtml2" about="scholarlyhtml2-expression" typeof="fabio:WebContent" property="frbr:realizationOf" resource="scholarlyhtml2-work" role="doc-biblioentry">
+                    <p about="scholarlyhtml2-expression" property="dcterms:bibliographicCitation">Berjon R., Ballesteros S. (2015). What is Scholarly HTML? <a about="scholarlyhtml2-work" typeof="fabio:TechnicalStandard" property="fabio:hasURL" content="http://scholarly.vernacular.io/" href="http://scholarly.vernacular.io/">http://scholarly.vernacular.io/</a></p>
+                </li>
+                <li id="sus" about="sus-test" typeof="fabio:WebContent" property="frbr:realizationOf" resource="sus-test" role="doc-biblioentry">
+                    <p about="sus-test" property="dcterms:bibliographicCitation">Brooke J. (1996). SUS-A quick and dirty usability scale. Usability evaluation in industry 189, no. 194 (1996): 4-7.</p>
+                </li>
+                <li id="rash-csv" about="rash-csv-expression" typeof="fabio:WorkshopPaper" property="frbr:realizationOf" resource="rash-csv-work" role="doc-biblioentry">
+                    <p about="rash-csv-expression" property="dcterms:bibliographicCitation">Di Mirri S., Peroni S., Rubano V., Salomoni P., Vitali F. (2017). Towards accessible graphs in HTML-based scientific articles. To appear in the Proceedings of the 2nd International Workshop on Accessible Devices and Services (ADS 2017). <span about="rash-csv-work" typeof="fabio:ResearchPaper">Open Access at <a about="diiorio-rocs-expression" rel="fabio:hasRepresentation" href="https://w3id.org/people/essepuntato/papers/rash-ads2017.html">https://w3id.org/people/essepuntato/papers/rash-ads2017.html</a></span></p>
+                </li>
+                <li id="alexander-pattern" about="alexander-pattern-expression" typeof="fabio:Book" property="frbr:realizationOf" resource="alexander-pattern-work" role="doc-biblioentry">
+                    <p about="alexander-pattern-expression" property="dcterms:bibliographicCitation">Alexander C. (1979). The Timeless Way of Building. Oxford, UK: Oxford University Press. ISBN: <span property="prism:isbn">978-0-19-502402-9</span></p>
+                </li>
+                <li id="gamma-pattern" about="gamma-pattern-expression" typeof="fabio:Book" property="frbr:realizationOf" resource="gamma-pattern-work" role="doc-biblioentry">
+                    <p about="gamma-pattern-expression" property="dcterms:bibliographicCitation">Gamma E., Helm R., Johnson R., Vlissides J. (1994). Patterns: Elements of Reusable Object-Oriented Software. New York, USA: Addison-Wesley. ISBN: <span property="prism:isbn">978-0-20-163361-0</span></p>
+                </li>
+                <li id="spinaci-raje" about="spinaci-raje-expression" typeof="fabio:ConferencePaper" property="frbr:realizationOf" resource="spinaci-raje-work" role="doc-biblioentry">
+                    <p about="spinaci-raje-expression" property="dcterms:bibliographicCitation">Spinaci G., Peroni S., Di Iorio A., Poggi F., Vitali F. (2017). The RASH Javascript Editor (RAJE) - A wordprocessor for writing Web-first scholarly articles. To appear in Proceeding of the 17th ACM Symposium on Document Engineering (DocEng 2017). New York, USA: ACM. <span about="spinaci-raje-work" typeof="fabio:ResearchPaper"><a about="spinaci-raje-expression" rel="fabio:hasRepresentation" href="https://rawgit.com/gspinaci/raje-doceng2017/master/raje-doceng2017.html">https://rawgit.com/gspinaci/raje-doceng2017/master/raje-doceng2017.html</a></span></p>
+                </li>
+                <li id="rash-release" about="rash-release-expression" typeof="fabio:ComputerApplication" property="frbr:realizationOf" resource="rash-release-work" role="doc-biblioentry">
+                    <p about="rash-release-expression" property="dcterms:bibliographicCitation">Peroni S. (2017). RASH Framework 0.6.1. Zenodo. <a about="diiorio-rocs-work" typeof="fabio:Work" href="https://doi.org/10.5281/zenodo.815603">https://doi.org/<span about="diiorio-rocs-expression" property="prism:doi">10.5281/zenodo.815603</span></a></p>
+                </li>
+                <li id="capadisli-dokieli" about="capadisli-dokieli-expression" typeof="fabio:ConferencePaper" property="frbr:realizationOf" resource="capadisli-dokieli-work" role="doc-biblioentry">
+                    <p about="capadisli-dokieli-expression" property="dcterms:bibliographicCitation">Capadisli S., Guy A., Verborgh R., Lange C., Auer S., Berners-Lee T. (2017). In Proceedings of the 17th International Conference on Web Engineering: 469-481. Cham, Switzerland: Springer. <a about="capadisli-dokieli-work" typeof="fabio:ResearchPaper" href="https://doi.org/10.1007/978-3-319-60131-1_33">https://doi.org/<span about="capadisli-dokieli-expression" property="prism:doi">10.1007/978-3-319-60131-1_33</span></a> (Open Access at <a about="capadisli-dokieli-expression" rel="fabio:hasRepresentation" href="http://csarven.ca/dokieli-rww">http://csarven.ca/dokieli-rww</a>)</p>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Footnotes -->
+        <section role="doc-endnotes">
+            <section id="fn2" role="doc-endnote">
+                <p>Technically speaking, this is a meta-article, since it has been actually written
+                    by using RASH itself as markup language. Thus it is possible to easily access
+                    the HTML code of this article to understand how the various elements are
+                    rendered by the browser.</p>
+            </section>
+            <section id="fn3" role="doc-endnote">
+                <p>The following prefixes are always mandatory in any RASH document:</p>
+                <ul>
+                    <li>
+                        <p>
+                            <code>schema: http://schema.org/</code>
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            <code>prism: http://prismstandard.org/namespaces/basic/2.0/</code>
+                        </p>
+                    </li>
+                </ul>
+            </section>
+            <section id="fn4" role="doc-endnote">
+                <p>Please refer to the official RASH documentation, available at <a href="http://cs.unibo.it/save-sd/rash">http://cs.unibo.it/save-sd/rash</a>,
+                    for a complete introduction of all the elements and attributes that can be used
+                    in RASH documents.</p>
+            </section>
+            <section id="fn5" role="doc-endnote">
+                <p>The layouts currently available are Web-based and Springer's <a href="http://www.springer.com/computer/lncs?SGWID=0-164-6-793341-0">Lecture
+                        Note in Computer Science</a> - the latter is based on the Springer LNCS CSS included in <a href="http://dokie.li">dokieli</a> <a href="#capadisli-dokieli"> </a>.</p>
+            </section>
+            <section id="fn6" role="doc-endnote">
+                <p>Note that accepting HTML as format for submissions in conferences/workshops is a
+                    totally different issue, since this choice is normally taken by the organisers.
+                    For instance, see the <a href="http://cs.unibo.it/save-sd/2015/submission.html">SAVE-SD 2015 call for papers</a> and the various editions of <a href="http://sepublica.mywikipaper.org/drupal/">SePublica</a>.</p>
+            </section>
+            <section id="fn7" role="doc-endnote">
+                <p>OASIS LegalDocumentML is the standardisation of <a href="http://www.akomantoso.org/">AkomaNtoso</a>, which is a set of simple
+                    technology-neutral electronic representations in XML format of parliamentary,
+                    legislative and judiciary documents, and has been already adopted by several
+                    parliaments in European Union, Africa, and South America.</p>
+            </section>
+            <section id="fn8" role="doc-endnote">
+                <p>A markup element is called <em>polysemous</em> when it carries different (and
+                    usually incompatible) structural or semantic functions that can change its
+                    behaviour depending on the particular context in which it is used. For instance,
+                    in the <a href="https://jats.nlm.nih.gov/archiving/tag-library/1.1/">Journal
+                        Article Tag Suite (JATS) specification</a>, the element <code>name</code>
+                    can assume two different meaning if it is included in the element
+                        <code>contrib</code> – and in this case it identifies the name of a
+                    particular contributor of the article in consideration – or in the element
+                        <code>mixed-citation</code> – where it can be used to say that a certain
+                    string is actually representing a name within a bibliographic entry <a href="#peroni-jats"> </a>.</p>
+            </section>
+            <section id="fn9" role="doc-endnote">
+                <p>The <em>content model</em> of an element is the particular organisation of its
+                    content in terms of text, attributes and elements that it can contain.</p>
+            </section>
+            <section id="fn10" role="doc-endnote">
+                <p>In the paper, for the sake of clarity, we use the prefix <q>@</q> when we
+                    name attributes (e.g. the attribute named <q>role</q> is introduced as
+                        <code>@role</code>), while we just name elements with their name (e.g.
+                        <code>section</code>).</p>
+            </section>
+            <section id="fn11" role="doc-endnote">
+                <p>The main aim of the LinkedResearch project is to propose principles for enabling
+                    researchers to share and reuse research knowledge by means of existing Web and
+                    Semantic Web technologies towards a future world where researchers can publish
+                    and consume human-friendly and machine-readable (e.g., by using RDFa <a href="#rdfa"> </a>) scholarly documents.</p>
+            </section>
+            <section id="fn12" role="doc-endnote">
+                <p>The source code and binaries of SPAR Xtractor are available at 
+                <a href="https://github.com/essepuntato/rash/tree/master/sources/spar-xtractor">https://github.com/essepuntato/rash/tree/master/sources/spar-xtractor</a> and
+                <a href="https://github.com/essepuntato/rash/tree/master/tools/spar-xtractor">https://github.com/essepuntato/rash/tree/master/tools/spar-xtractor</a>, respectively.
+
+                </p>
+            </section>
+            <section id="fn13" role="doc-endnote">
+                <p>
+                	The prefix <code>po:</code> stands for the namespace <a href="http://www.essepuntato.it/2008/12/pattern#">http://www.essepuntato.it/2008/12/pattern#</a>.
+                </p>
+            </section>
+             <section id="fn15" role="doc-endnote">
+                <p>The authors who answered "Strongly Agree" to the background questions where classified as "Experts", the ones who answered "Agree" as "Familiars", and all the others as "Not familiar".</p>
+            </section>
+        </section>
+    </body>
+</html>

@@ -1,0 +1,16 @@
+{
+    "records":[
+        {"text": "Overdraft fees may be applied.",
+         "label": "positive"
+         },
+        {"text": "You may incur fees because of out of network.",
+         "label": "negative"
+         },
+        {"text": "This bank is awful.",
+         "label": "negative"
+         },
+        {"text": "There were not enough funds in the account to make the withdrawal",
+         "label": "positive"
+         }
+         ]
+}

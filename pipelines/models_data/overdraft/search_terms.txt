@@ -1,0 +1,6 @@
+creditcard
+fees 
+terms conditions 
+overdraft 
+non sufficient funds
+insufficient

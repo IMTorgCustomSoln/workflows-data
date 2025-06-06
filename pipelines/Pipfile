@@ -1,0 +1,60 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[[source]]
+url = "p-lock"
+verify_ssl = true
+name = ""
+
+[packages]
+setfit = "*"
+fpdf = "*"
+pypdf = "*"
+"pyannote.audio" = "*"
+speechbrain = "==0.5.16"
+datasets = "*"
+logzero = "*"
+xlsxwriter = "*"
+plotnine = "*"
+scikit-learn = "*"
+tldextract = "*"
+requests-html = "*"
+beautifulsoup4 = "*"
+lxml = "*"
+python-whois = "*"
+lxml-html-clean = "*"
+faker = "*"
+pdftitle = "*"
+"pdfminer.six" = "*"
+pikepdf = "*"
+xhtml2pdf = "*"
+huggingface-hub = "==0.23.5"
+pyyaml = "*"
+weasyprint = "*"
+datetime = "*"
+chardet = "*"
+pytest = "*"
+compressed-rtf = "*"
+rtfde = "*"
+pypandoc = "*"
+pyopenssl = "*"
+olefile = "*"
+python-magic = "*"
+unicodecsv = "*"
+colorama = "*"
+dotmap = "*"
+dill = "*"
+pymupdf = "*"
+transformers = "==4.39.0"
+librosa = "*"
+soundfile = "*"
+libclang = "*"
+duckduckgo-search = "*"
+
+[requires]
+python_version = "3.9"
+
+[dev-packages]
+pytest-cov = "*"

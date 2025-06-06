@@ -1,0 +1,18 @@
+[tool.pytest.ini_options]
+testpaths = [
+    "tests",
+    "src/modules/enterodoc/tests",
+]
+norecursedirs = [
+  ".vscode",
+  "config",
+  "logs",
+  "pretrained_models",
+  "dist",
+  "build",
+  "runs",
+  "workflows",
+
+  "tests/test_asr",
+  "tests/test_site_scrape",
+]

@@ -1,0 +1,29 @@
+{
+    "id": null,
+    "reference_number": null,
+    "filepath": null,
+    "filename_original": null,
+    "filename_modified": null,
+
+    "file_extension": null,
+    "filetype": null,
+    "file_str": null,
+    "file_document": null,
+    "page_nos": null,
+    "length_lines": null,
+    "file_size_mb": null,
+    "date": null,
+
+    "title": null,
+    "author": null,
+    "subject": null,
+    "toc": null,
+    "pp_toc": null,
+
+    "body": null,
+    "clean_body": null,
+    "readability_score": null,
+    "tag_categories": null,
+    "keywords": null,
+    "summary": "narrative"
+}

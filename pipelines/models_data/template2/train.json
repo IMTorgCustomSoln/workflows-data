@@ -1,0 +1,16 @@
+{
+    "records": [
+    {"text": "I was sick.",
+     "label": "positive"
+     },
+    {"text": "My husband lost his job",
+     "label": "positive"
+     },
+     {"text": "I got a raise at work",
+     "label": "negative"
+     },
+     {"text": "I lost my dog to cancer",
+     "label": "negative"
+     }
+     ]
+}

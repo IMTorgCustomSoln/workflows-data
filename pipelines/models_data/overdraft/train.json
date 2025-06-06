@@ -1,0 +1,16 @@
+{
+    "records": [
+    {"text": "Non sufficient funds is a serious problem.",
+     "label": "positive"
+     },
+    {"text": "Overdraft fee will be assessed.",
+     "label": "positive"
+     },
+     {"text": "No international fees",
+     "label": "negative"
+     },
+     {"text": "Out of network fees are applied to these firms.",
+     "label": "negative"
+     }
+     ]
+}

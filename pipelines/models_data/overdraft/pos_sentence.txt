@@ -1,0 +1,79 @@
+An overdraft fee is charged when you withdraw more money from your account than what is available. 
+If your balance is $50 and you write a check for $75, our system will cover the extra $25 but will charge you an overdraft fee for this service. 
+The fee is typically $35 per transaction, and it helps cover the cost of the additional risk we take on when covering these transactions.
+A Non-Sufficient Funds (NSF) fee is applied when you try to make a payment or withdraw funds that exceed your account balance, and the bank is unable to cover the transaction. 
+If you have $20 in your account and attempt to make a $30 purchase, the bank cannot process the payment, and you'll be charged an NSF fee, which is usually around $35. 
+This fee helps us manage the costs associated with handling these situations.
+We offer an overdraft protection service that can help you avoid fees when you overdraw your account. 
+If you opt into this service, we link your checking account to your savings account or a line of credit. 
+If you spend more than you have in your checking account, we’ll automatically transfer the necessary funds from your savings or credit line to cover the shortfall. 
+There may be a fee for each transfer, but it’s generally less than an overdraft fee.
+It’s important to understand the difference between overdraft fees and NSF fees. 
+An overdraft fee occurs when we allow a transaction to go through even though you don't have sufficient funds, while an NSF fee is charged when a transaction is declined because of insufficient funds. 
+Overdraft fees are typically incurred when you’ve opted into overdraft protection, while NSF fees are for transactions we can't process.
+If you find yourself facing overdraft or NSF fees, please contact us. 
+We often review fees on a case-by-case basis and may offer a waiver, especially if this is your first occurrence or if you have a good standing with us. 
+We’re here to help you understand your options and avoid future fees.
+Some accounts have a daily overdraft fee structure, where you are charged a fee for each day your account remains overdrawn. 
+For example, if you overdraw your account and don’t bring it back to a positive balance, you might be charged a daily fee of $10 until the account is funded. 
+This is in addition to any one-time overdraft fees that may apply.
+If you use your debit card at an ATM and attempt to withdraw more funds than are available in your account, you might be charged an overdraft fee if you’ve opted into our overdraft protection. 
+This fee is applied because the bank covers the extra amount you withdrew. 
+If you haven’t opted into overdraft protection, the transaction will be declined, and you might incur an NSF fee instead.
+Protect Your Balance: With our overdraft protection, never worry about accidental overdrafts again. 
+Sign up today and avoid unnecessary fees!
+Peace of Mind with Overdraft Coverage
+Our flexible overdraft protection helps cover unexpected expenses without the stress of declined transactions.
+Avoid Overdraft Fees
+Set up alerts to keep track of your balance and stay informed about your account status, so you can avoid fees.
+Smart Savings, Smart Spending: Our overdraft protection service is here to help you manage your finances more effectively. 
+Link your checking account with a savings account or line of credit for seamless overdraft protection and lower fees.
+Our mobile app gives you real-time updates and balance alerts to help you avoid overdraft fees and stay in control.
+First-Time Fee Waiver
+If you’re new to our bank, we offer a one-time waiver on overdraft fees to help you get started without extra charges.
+Use our online tools to monitor your balance and set up automatic transfers to cover potential overdrafts and avoid fees.
+Your Safety Net
+With our overdraft protection, enjoy the convenience of automatic fund transfers to cover any unexpected expenses without worrying about fees.
+Set up personalized alerts to notify you when your balance is low, helping you avoid overdraft fees and manage your spending.
+Avoid Unnecessary Fees
+Overdraft fees can add up quickly Keep track of your balance and avoid going over by using our financial management tools.
+NSF Fees Can Disrupt Your Budget
+A non-sufficient funds fee can be a setback. 
+Ensure you have enough funds in your account to avoid these charges.
+Overdraft Fees Add Up
+If you often find yourself overdrawn, consider reviewing your spending habits to avoid the high cost of repeated overdraft fees.
+Declined Transactions
+If you try to withdraw more than you have, you might face an NSF fee. 
+Check your balance regularly to prevent these charges.
+Manage Your Account Wisely
+Repeated overdrafts can lead to costly fees and financial stress.
+Stay informed about your account balance to avoid these issues.
+High Overdraft Costs
+Overdraft fees can be steep. 
+Use our budgeting tools to better manage your funds and minimize the risk of overdrafts.
+NSF Fees Hurt Your Wallet
+When transactions are declined due to insufficient funds, you might face additional fees. 
+Make sure your account is well-funded to avoid this.
+Frequent Overdraft Fees? 
+If you find yourself frequently overdrawn, it may be time to reassess your account management strategies to reduce these costs.
+Protect Yourself from NSF Fees
+Unanticipated charges can lead to non-sufficient funds fees. 
+Regularly monitor your account to avoid these charges.
+Overdraft Awareness
+Understand the costs associated with overdrawing your account and use our tools and resources to prevent fees and manage your finances effectively.
+Your overdraft protection has been successfully activated. 
+You now have added security against unexpected shortfalls in your checking account.
+We are pleased to inform you that the overdraft fee charged has been waived as a one-time courtesy.
+You’re now back in good standing with no overdraft or NSF fees.
+Overdraft protection has been successfully linked to your checking account. 
+Enjoy the peace of mind that comes with automatic coverage for overdrafts.
+An overdraft fee has been applied to your account due to a transaction exceeding your available balance.
+A Non-Sufficient Funds (NSF) fee of [Amount] has been charged due to insufficient funds for the transaction processed on [Date].
+Due to repeated overdrafts, your account has been temporarily suspended Please contact customer service to discuss your options and resolve the issue.
+Your account currently has a negative balance of [Amount] Please deposit funds promptly to avoid further fees or account restrictions.
+We have reviewed your dispute regarding the recent overdraft fee After careful consideration, the fee has been upheld and remains on your account.
+Your recent application for a credit card has been denied due to insufficient credit history. Please contact us for more information or to discuss other options
+Your account is at risk of closure due to sustained negative balance. To avoid this, please make a deposit of [Amount] by [Date].
+Your request for overdraft protection has been declined For further details or to discuss alternative options, please contact customer service.
+A returned item fee of [Amount] has been charged to your account due to a check being returned for insufficient funds. 
+Please ensure sufficient funds for future transactions.

@@ -1,0 +1,14 @@
+Name,Role,LineOfBusiness,SubLOB-1,SubLOB-2,SubLOB-3,ImmediateManager,HigherMgr-1,HigherMgr-2
+Lao Lao,general manager,Huge Firm,,,,,,
+Bo Miao,department manager,Huge Firm,Stores,,,Lao Lao,,
+Su Miao,department manager,Huge Firm,Web Services,,,Lao Lao,,
+Tie Hua,senior engineer,Huge Firm,Web Services,US,,Su Miao,Lao Lao,
+Hei Hei,senior engineer,Huge Firm,Web Services,EM,,Su Miao,Lao Lao,
+Pang Pang,engineer,Huge Firm,Web Services,EM,Columbia,Hei Hei,Su Miao,Lao Lao
+Xiang Xiang,UE engineer,Huge Firm,Web Services,EM,Brazil,Hei Hei,Su Miao,Lao Lao
+Yu Jie,department manager,Huge Firm,Product1,,,Lao Lao,,
+Yu Li,department manager,Huge Firm,Product2,,,Lao Lao,,
+Hong Miao,department manager,Huge Firm,Product3,,,Lao Lao,,
+Yu Wei,department manager,Huge Firm,Product4,,,Lao Lao,,
+Chun Miao,department manager,Huge Firm,Product5,,,Lao Lao,,
+Yu Tie,department manager,Huge Firm,Product6,,,Lao Lao,,
