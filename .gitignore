@@ -15,7 +15,7 @@ pipelines/tests/test_wf_template/tmp/*
 pipelines/tests/test_wf_text_classify/tmp/*
 pipelines/tests/test_wf_text_classify/pretrained_models/*
 pipelines/tests/test_wf_asr/tmp/*
-pipelines/tests/test_wf_site_scrape/tmp*
+#pipelines/tests/test_wf_site_scrape/tmp*
 pipelines/tests/test_wf_ecomms/tmp/*
 pipelines/tests/test_wf_export_workspace/tmp/*
 
