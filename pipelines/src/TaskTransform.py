@@ -42,10 +42,36 @@ class UnzipTask(Task):
         self.config['LOGGER'].info(f"end ingest file location from {self.input_files.directory.resolve().__str__()} with {len(sound_files_list)} files matching {self.target_extension}")
         return True
 
+
+
+
+import ffmpeg
+import subprocess
+
+def convert_mp4_to_mp3(input_file, output_file):
+    """Convert .mp4 video files to .mp3 audio files for transcription."""
+    #check = ffmpeg.input(input_file).output(output_file).run()
+    try:
+        subprocess.run(['ffmpeg', '-i', input_file, '-q:a', '0', '-map', 'a', output_file],check=True)
+        print(f"Conversion successful! Saved as {output_file}")
+        return True
+    except subprocess.CalledProcessError as e:
+        print(f"Error during conversion: {e}")
+        return False
+    except FileNotFoundError:
+        print("FFmpeg is not installed or not found in your PATH.")
+        return False
+
+
+
 class FlattenFileStructureTask(Task):
     """..."""
-    def __init__(self, config, input, output):
+    def __init__(self, config, input, output, convert_files=False):
         super().__init__(config, input, output)
+        self.convert_files = convert_files
+        self.converter_router = {
+            '.mp4': {'fun': convert_mp4_to_mp3, 'outfile_suffix': '.mp3'}
+        }
     def get_next_run_file_from_directory(self):
         filelist = []
         for item in list(self.input_files.directory.iterdir()):
@@ -57,8 +83,14 @@ class FlattenFileStructureTask(Task):
     def run(self):
         sound_files_list = []
         for file in self.get_next_run_file_from_directory():
-            outfile_path = self.output_files.directory / file.name
-            shutil.copy(file.__str__(), outfile_path)
+            if (not self.convert_files) or (file.suffix not in self.converter_router.keys()):
+                outfile_path = self.output_files.directory / file.name
+                shutil.copy(file.__str__(), outfile_path)
+            else: 
+                key = file.suffix
+                outfile_suffix = self.converter_router[key]['outfile_suffix']
+                outfile_path = self.output_files.directory / f'{file.stem}{outfile_suffix}'
+                self.converter_router[key]['fun'](file.__str__(), outfile_path.__str__())
             sound_files_list.append(outfile_path)
         return True
    

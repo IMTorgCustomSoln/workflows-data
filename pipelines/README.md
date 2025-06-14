@@ -80,8 +80,11 @@ Some external modules are maintained within this repo to enable quick editing: `
 * improve interactive mode with notebook.ipynb
   - enable lists, instead of Files to be used with Tasks
   - test_workflow > test_task > test_files
-* update EnteroDoc module to use msft markitdown: https://github.com/microsoft/markitdown
-
+* update EnteroDoc module
+  - use markdown-pdf for improved presentation: https://github.com/vb64/markdown-pdf
+  - use msft markitdown for all office formats: https://github.com/microsoft/markitdown
+  - Classification task with spacy for directly using .pdf, .docx, ...: https://github.com/explosion/spacy-layout
+  - performant spacy: https://github.com/BramVanroy/spacy-extreme
 
 ### Wf-Ecomms
 
@@ -119,29 +122,45 @@ Some external modules are maintained within this repo to enable quick editing: `
 
 ### Site_Scrape
 
-* Record
-  ```urls.json
+* DONE ~~Input Record
+  ```urls.yaml
   {
   'bank_name': {
     'root_url: 'https://www...',
     'given_urls: [url1,url2, ...],
     }
   }
-  ```
-* add more configuration items to Scenario
-  - depth
-  - search engine tries until timeout
+  ```~~
+* DONE ~~add more configuration items to Scenario~~
+  - ~~depth~~
+  - ~~search engine tries until timeout~~
 * add more Crawler tests
-  - check why following are validated:
-    + https://www.cardcenterdirect.com/
-    + https://www.umb.edu/media/umassboston/editor-uploads/research/research-amp-sponsored-programs/Cost-Transfer-Policy--Procedures.pdf
-    + ...
-  - check why the following error:
-    + https://www.creditonebank.com/faqs/disputing-charges, 'you need to have javascript enabled to use this app'
-    + ...
-* documentation
-  - explain configuration adjustments
-* create reports
-  - urls collected, validated, selected(reason)
-  - document text results: hits, counts, snippets => VDI b-table export to excel, [ref](https://stackoverflow.com/questions/71465593/exporting-bootstrap-table-to-excel-or-pdf)
-* compress pdf size with [`pdfsizeopt](https://github.com/pts/pdfsizeopt), but must update for py3.*, first
+  - validation_failures
+  - rendering_failures
+* improve Crawler rendering output
+  - ~~possible rendering fail~~
+  - ~~if `file_size_mb` <= 0.005 (doc-60: 0.004046), then url.get_visible_text()~~
+  - ...
+* document-level classification
+  - type: 
+  - expected audience: 
+* exports
+  - summary report fields:
+    + urls collected,
+    + validated
+    + selected(reason)
+  - document report fields:
+    + ~~duplication indicator
+    + ~~login-required indicator
+    + link / redirect graph
+    + complexity scale
+    + model targeted-text score
+    + model targeted-text text
+    + type classification: contract, marketing, educational => DocumentClassificationTask
+    + audience classification: consumer/retail, commercial/business, investors
+  - individual documents
+    + index with title or filename
+  - document markup highlights
+    + disclosures
+    + key items
+  - compress pdf size with [`pdfsizeopt](https://github.com/pts/pdfsizeopt), but must update for py3.*, first

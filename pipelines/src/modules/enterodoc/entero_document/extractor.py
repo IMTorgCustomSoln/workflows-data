@@ -13,6 +13,11 @@ from .extracts_html import HtmlExtracts
 from .extracts_txt import TxtExtracts
 #from .office_extracts import OfficeExtracts
 
+from .url import UniformResourceLocator
+from src.io.export import text_to_pdf
+
+import sys
+import re
 
 
 class ExtractsSuite:
@@ -64,18 +69,28 @@ class ExtractsSuite:
             with open(record.filepath, 'r') as f:
                 html_str = f.read()
         #html_string to pdf
-        pdf_bytes = self.Html.html_string_to_pdf_bytes(html_str=html_str, 
-                                                        url_path=None, 
-                                                        record=record
-                                                        )
-        if not pdf_bytes:
-            from src.io.export import text_to_pdf
-            pdf_bytes = text_to_pdf(record.file_document.text)
+        pdf_bytes = self.Html.html_string_to_pdf_bytes(
+            html_str=html_str,
+            url_path=record['filepath'],
+            record=record
+            )
+        result_record_v1 = self.Pdf.extract_from_pdf_string(pdf_stream=pdf_bytes)
+
+        #use plain text if html fails
+        if not pdf_bytes or sys.getsizeof(pdf_bytes) < 5000:
+            visible_text = UniformResourceLocator.get_visible_text_(
+                self=UniformResourceLocator, 
+                file_document=record['file_document']
+                )
+            pdf = text_to_pdf(visible_text)
+            pdf_bytes = pdf.output(dest='S').encode('latin1')
+            result_record_v2 = self.Pdf.extract_from_pdf_string(pdf_stream=pdf_bytes)
+            result_record_v2["title"] = result_record_v1["title"]
+            result_record_v1 = result_record_v2
 
         #get record attributes from pdf
-        result_record = self.Pdf.extract_from_pdf_string(pdf_stream=pdf_bytes)
-        result_record["file_uint8arr"] = [x for x in result_record["file_pdf_bytes"]]
-        return result_record
+        result_record_v1["file_uint8arr"] = [x for x in result_record_v1["file_pdf_bytes"]]
+        return result_record_v1
     
 
     def extract_from_txt(self, record):

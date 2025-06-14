@@ -9,6 +9,7 @@ __license__ = "MIT"
 from src.modules.enterodoc.entero_document.url import UrlFactory, UniformResourceLocator
 
 import dill
+import pytest
 
 
 hrefs = [
@@ -104,6 +105,19 @@ def test_get_file_artifact_():
         check1.append( item[0] == expected[idx][0] )
         check2.append( item[1] >= expected[idx][1] )
     assert all([check1, check2])
+
+@pytest.mark.skip(reason="Test is currently under development")
+def test_url__get_file_artifact():
+    """..."""
+    assert True == True
+
+
+@pytest.mark.skip(reason="Test is currently under development")
+def test_url__parse_artifact_from_suffix():
+    """..."""
+    assert True == True
+
+
 
 def test_has_same_url_owner_():
     base_url = 'https://www.jpmorgan.com'

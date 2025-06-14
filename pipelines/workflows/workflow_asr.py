@@ -55,12 +55,13 @@ config = {
         {
             'class': UnzipTask,
             'name': 'unzipped',
-            'extension_patterns': ['.zip'],
+            'extension_patterns': ['.zip','.gz'],
         },
         {
              'class': FlattenFileStructureTask,
              'name': 'flatten',
-             'extension_patterns': ['.zip'],
+             'extension_patterns': ['.zip','.gz'],
+             'convert_files': True
          },
         {
              'class': AsrTask,

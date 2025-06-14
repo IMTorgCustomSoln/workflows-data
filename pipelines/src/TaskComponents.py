@@ -194,7 +194,7 @@ class ImportAndValidateUrlsTask(Task):
                 new_scenario.base_url = item['root_url']
                 new_scenario.urls = url_list
                 crawler.add_scenario(new_scenario)
-                valid_urls = crawler.check_urls_are_valid(url_list)
+                valid_urls = crawler._check_urls_are_valid(url_list)
                 valid_urls_str = [url.__repr__() for url in valid_urls]
                 item['_valid_urls'] = valid_urls_str
                 self.config['LOGGER'].info(f"validated {len(valid_urls)} urls and saved to target {key} ")
@@ -243,8 +243,8 @@ class CrawlUrlsTask(Task):
                 valid_urls = [URL.build(url) for url in copy.deepcopy(item['_valid_urls'])]
                 new_scenario.urls = valid_urls
                 new_scenario.list_of_search_terms = get_models_data_search_terms(self.config)
-                new_scenario.number_of_search_results = 20      #TODO:add to config
                 new_scenario.depth = 2
+                new_scenario.stopping_criteria['number_of_search_results'] = 20
                 #use crawler
                 crawler = Crawler(
                     scenario=new_scenario,
@@ -477,6 +477,7 @@ class ExportIndividualPdfTask(Task):
         processed_files = self.get_next_run_file_from_directory(method='update')
         processed_files.sort(key=lambda x: x.filepath.stem)
         export_fields = ['id', 'date', 'page_nos', 'filetype', 'file_extension', 'file_size_mb', 'title', 'filename_original', 'filepath', 'pp_toc']
+        #individual rendered files
         report_records = []
         cnt = 0
         for file in processed_files:
@@ -499,8 +500,50 @@ class ExportIndividualPdfTask(Task):
             else:
                 record['printed'] = False
             report_records.append(record)
+        
+        #document report
         df = pd.DataFrame(report_records)
         report = df[export_fields]
+        #duplicates
+        dups_title = report.duplicated(subset=['title'], keep='first')
+        dups_title[dups_title==False] = ''
+        dups_title[dups_title==True] = 'title'
+        dups_filename = report.duplicated(subset=['filename_original'], keep='first')
+        dups_filename[dups_filename==False] = ''
+        dups_filename[dups_filename==True] = 'filename'
+        dups_filepath = report.duplicated(subset=['filepath'], keep='first')
+        dups_filepath[dups_filepath==False] = ''
+        dups_filepath[dups_filepath==True] = 'filepath'
+        dups_title = pd.DataFrame(dups_title, columns=['dups_title'], dtype=str)
+        dups_filename = pd.DataFrame(dups_filename, columns=['dups_filename'], dtype=str)
+        dups_filepath = pd.DataFrame(dups_filepath, columns=['dups_filepath'], dtype=str)
+        dfconcat = pd.concat(
+            [report[['title','filename_original','filepath']],
+             dups_title,
+             dups_filename,
+             dups_filepath
+             ], axis=1)
+        def fix_rows(row):
+            result = []
+            try:
+                if row['dups_title'] == 'title' and row['title'] != None:
+                    result.append( row['dups_title'] )
+                if row['dups_filename'] == 'filename' and row['filename_original'] != None:
+                    result.append( row['dups_filename'] )
+                if row['dups_filepath'] == 'filepath' and row['filepath'] != None:
+                    result.append( row['dups_filepath'] )
+            except:
+                print(row)
+            result_str = ', '.join(result)
+            return result_str
+        report['duplicates'] = dfconcat.apply(fix_rows, axis=1)
+        #login
+        lst = ['login', 'auth']
+        login = report['filepath'].str.contains('|'.join(lst), na=False)
+        login[login==False] = ''
+        login[login==True] = 'yes'
+        report['login_required'] = login
+        #export
         reportfile = self.output_files.directory / 'report.csv'
         report.to_csv(reportfile)
         self.config['LOGGER'].info(f"end export {cnt} of {len(processed_files)} files")

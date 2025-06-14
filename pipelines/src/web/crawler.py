@@ -3,21 +3,26 @@
 Crawler class to discover web sites that meet criteria.
 
 
-TODO: use framework for the following
-* frameworks
-  - [crawlee](https://crawlee.dev/python/)
-  - [scrapy](https://scrapy.org/)
-* concurrent requests, retries, 
-* remove duplicate urls => cache all read urls, even across roots
-* improve speed => only limit speed to same domain
+TODO:
 * limit depth crawl => collect branches up to limit, prevent from running forever
+* remove duplicate urls => cache all read urls, even across roots
 * prevent blocks => 
   - rotate `User-Agent`
   - run during off-peak hours
   - respect robots.txt
   - avoid honeypot urls
+* class to switch-out search engine
+  - duckduckgosearch (DDGS)
+  - googlesearch 
 * prioritize urls
 * frequency control => read `crawl-delay` in `robots.txt`
+* frameworks
+  - [crawlee](https://crawlee.dev/python/)
+  - [scrapy](https://scrapy.org/)
+* concurrent requests, retries, 
+* integrate with proxy server
+* improve speed => only limit speed to same domain
+
 """
 
 __author__ = "Jason Beach"
@@ -57,13 +62,29 @@ class BaseSearchScenario:
     The following are added by the Crawler:
         * self._stringified_lists
         * self._valid_urls
+
+    Argument-Functionality Mapping:
+    * base_url => check_urls_are_valid(), get_initial_url_list()
+    * urls => check_urls_are_valid()
+    * list_of_search_terms => _prepare_search_terms()
+    * depth => get_hrefs_within_depth()
+    * stopping_criteria
+      - search_engine_timeout => _get_initial_url_list()
+      - number_of_search_results => _get_initial_url_list()
+      - attempts_until_abort => _get_initial_url_list()
+      - minimum_retry_delay_secs => _get_initial_url_list()
     """
     def __init__(self, base_url, urls, list_of_search_terms):
         self.base_url = base_url
         self.urls = urls
         self.list_of_search_terms = list_of_search_terms
         self.depth = 0
-        self.number_of_search_results = 5
+        self.stopping_criteria = {
+            'search_engine_timeout': 10,
+            'number_of_search_results': 5,
+            'attempts_until_abort': 5,
+            'minimum_retry_delay_secs': 5,
+        }
 
     #the following is necessary to perform copy.deepcopy(), 
     # ref: https://stackoverflow.com/questions/10618956/copy-deepcopy-raises-typeerror-on-objects-with-self-defined-new-method
@@ -93,7 +114,6 @@ empty_scenario = BaseSearchScenario(base_url=None,
 
 
 
-#primary class
 class Crawler:
     """Crawl sites specific to a Scenario's urls and search
     terms to produce a list of url references that meet the
@@ -101,10 +121,22 @@ class Crawler:
 
     This is an 'opportunistic' crawler in that it only 
     accepts an initial domain and search scenario, then
-    leverages google search to find target pages.
+    leverages a search engine to find target pages.
     
     Usage::
-    UrlCrawl = Crawler(logger, exporter, scenario)
+    new_scenario = copy.deepcopy(empty_scenario)
+    new_scenario.base_url = URL.build(item['root_url'])
+    valid_urls = [URL.build(url) for url in copy.deepcopy(item['_valid_urls'])]
+    new_scenario.urls = valid_urls
+    new_scenario.list_of_search_terms = get_models_data_search_terms(self.config)
+    new_scenario.number_of_search_results = 20      #TODO:add to config
+    new_scenario.depth = 2
+    #use crawler
+    crawler = Crawler(
+        scenario=new_scenario,
+        logger=self.config['LOGGER'],
+        exporter=None
+        )
     """
 
     def __init__(self, scenario, logger, exporter):
@@ -116,8 +148,8 @@ class Crawler:
         self.url_factory = UrlFactory()
         self.scenario = self.add_scenario(scenario)
         self._prepare_search_terms()
-        self.min_delay = 5
-        self.attempts = 1
+        self.stopping_criteria = scenario.stopping_criteria
+        self.request_attempts = 1
         
     def __repr__(self):
         return f'Crawler with scenario: depth - {self.scenario.depth}, urls ({len(self.scenario.urls)}) - {self.scenario.urls}'
@@ -153,7 +185,7 @@ class Crawler:
         scenario._valid_urls = []
         return scenario
 
-    def check_urls_are_valid(self, url_list=None, base_url=None):
+    def _check_urls_are_valid(self, url_list=None, base_url=None):
         """Basic checks on list of targeted urls
         * ensure proper url formatting
         * consistent domain owner (if base_domain provided)
@@ -196,27 +228,32 @@ class Crawler:
             raise Exception('cannot `generate_href_chain()` because `scenario._valid_urls` is not populated')
         result_urls = {}
         for url in self.scenario._valid_urls:
-            initial_list = self.get_initial_url_list(base_url = self.scenario.base_url,
-                                                     url = url, 
-                                                     stringified_lists = self.scenario._stringified_lists,
-                                                     number_of_search_results = self.scenario.number_of_search_results
-                                                     )
-            hrefs = self.get_hrefs_within_depth(base_url = self.scenario.base_url,
-                                                depth = self.scenario.depth,
-                                                initial_url_list = initial_list
-                                                )
+            initial_list = self._get_initial_url_list(
+                base_url = self.scenario.base_url,
+                url = url, 
+                stringified_lists = self.scenario._stringified_lists,
+                stopping_criteria = self.stopping_criteria
+                )
+            hrefs = self._get_hrefs_within_depth(
+                base_url = self.scenario.base_url,
+                depth = self.scenario.depth,
+                initial_url_list = initial_list
+                )
             url_str = url.url
             hrefs_str = hrefs    #[href.url for href in hrefs]
             result_urls[url_str] = hrefs_str
             self.logger.info(f"result of `generate_href_chain()` is {len(hrefs)} result_urls for root {url} listed as: {hrefs}")
         return result_urls
 
-    def get_initial_url_list(self, base_url, url, stringified_lists, number_of_search_results):
-        """Get initial list of urls from google given search terms."""
-        NumberOfSearchResults = number_of_search_results
-        #BaseUrl = self.url_factory.build('https://www.jpmorgan.com')
-        #BaseUrl = url
-        '''
+    def _get_initial_url_list(self, base_url, url, stringified_lists, stopping_criteria):
+        """Get initial list of urls from google given search terms.
+        
+        TODO:create replaceable search_engine abstract
+        TODO:where does this fit in?
+            #BaseUrl = self.url_factory.build('https://www.jpmorgan.com')
+            #BaseUrl = url
+        """
+        '''TODO:does this have any value?
         domain = url.get_domain()
         term_permutations = list(itertools.permutations(list_of_search_terms, r=2))
         search_terms_list = []
@@ -228,41 +265,46 @@ class Crawler:
         '''
         domain = url.get_domain()
         result_url_list = []
-        for terms in stringified_lists:
+        for idx, terms in enumerate(stringified_lists):
+            if idx > 0:
+                time.sleep(stopping_criteria['minimum_retry_delay_secs'])
             terms = terms.replace('`','').replace(',','') + ' ' + domain
             try:
-                '''
+                #google
+                '''TODO:earlier work with google
                 search_results = googlesearch.search(term = terms, 
-                                                     num_results = NumberOfSearchResults,
-                                                     sleep_interval = 5 
+                                                     num_results = stopping_criteria['number_of_search_results'],
+                                                     sleep_interval = stopping_criteria['minimum_retry_delay_secs']
                                                      )
                 '''
-                search_results = DDGS(timeout=20).text(
+                #duckduckgo
+                search_results = DDGS(
+                    timeout=stopping_criteria['search_engine_timeout']
+                    ).text(
                     keywords = terms,
-                    max_results = NumberOfSearchResults
+                    max_results = stopping_criteria['number_of_search_results']
                     )                
                 self.logger.info(f'request made to search engine using terms: {terms}')
                 str_result_url_list = [str(url) for url in result_url_list]
                 unique_urls = [url['href'] for url in search_results if url['href'] not in str_result_url_list]
                 SearchUrls = [self.url_factory.build(result) for result in unique_urls]
                 result_url_list.extend(SearchUrls)
-                time.sleep(self.min_delay)
             except Exception as e:
                 self.logger.error(f'ERROR: {e}')
                 self.logger.error('ERROR: there was a problem making the request to the search engine')
                 if "Ratelimit" in str(e):
-                    wait_time = self.min_delay + (self.attempts * 2)
-                    self.attempts += 1
+                    wait_time = stopping_criteria['minimum_retry_delay_secs'] + (self.request_attempts * 2)
+                    self.request_attempts += 1
                     time.sleep(wait_time)
-                if self.attempts >= 10:    #TODO:place in configuration
+                if self.request_attempts >= stopping_criteria['attempts_until_abort']:
                     break
-        ValidUrls = self.check_urls_are_valid(url_list = result_url_list, 
+        ValidUrls = self._check_urls_are_valid(url_list = result_url_list, 
                                               base_url = base_url
                                               )
         return ValidUrls
 
 
-    def get_hrefs_within_depth(self, base_url=None, depth=1, initial_url_list=[]):
+    def _get_hrefs_within_depth(self, base_url=None, depth=1, initial_url_list=[]):
         """Get all hrefs from a page, within a depth, and certain criteria.
 
         This is similar to `wget --recursive http://site.com`, but it removes 
@@ -289,7 +331,7 @@ class Crawler:
                         check_owner = Url.has_same_url_owner_(BaseUrl)
                     if not (Url.url in searched_hrefs) and check_owner:
                         new_hrefs = Url.get_hrefs_within_hostname_(searched_hrefs = searched_hrefs)
-                        valid_hrefs = self.check_urls_are_valid(url_list = new_hrefs, 
+                        valid_hrefs = self._check_urls_are_valid(url_list = new_hrefs, 
                                                                 base_url = BaseUrl
                                                                 #base_url = BaseUrl_JPM
                                                            )

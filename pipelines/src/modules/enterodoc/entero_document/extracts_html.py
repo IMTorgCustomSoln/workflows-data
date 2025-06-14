@@ -46,7 +46,8 @@ class HtmlExtracts:
                 record[key] = None
         meta_attrs = ["title", "author", "subject", "keywords"]
 
-        html = io.StringIO(html_str) 
+        html = io.StringIO(html_str)
+        #TODO:try wkhtmltopdf - it seems to be more robust to errors than weazyprint 
         """
         try:
             context = pisa.pisaDocument(src=html,
@@ -63,7 +64,8 @@ class HtmlExtracts:
             print("Error: unable to create the PDF")
         """
         if not pdf_bytes:
-            pdf_bytes = weasyprint.HTML(html).write_pdf()
+            #pdf_bytes = weasyprint.HTML(html).write_pdf()
+            pdf_bytes = weasyprint.HTML(string=html_str).write_pdf()
         
         time1 = time.time()
         self.config.logger.info(f'Convert html to pdf took: {time1 - time0} secs')

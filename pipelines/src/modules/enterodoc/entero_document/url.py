@@ -15,6 +15,8 @@ import whois
 from requests_html import HTMLSession
 import bs4
 import pypdf
+from fake_useragent import UserAgent
+ua = UserAgent()
 
 import urllib
 from pathlib import Path
@@ -23,6 +25,7 @@ import time
 import sys
 #import json
 import copy
+import re
 
 
 
@@ -313,6 +316,7 @@ class UniformResourceLocator():
             - improve error handling (too many errors)
         """
         ATTEMPTS = 2
+        DELAY_SEC = 3
 
         def request_iteration():
             try:
@@ -321,7 +325,7 @@ class UniformResourceLocator():
                 self.owner = self.whois_account.text.split('Organization:')[1].split('\n')[0].strip()
             except:
                 self.logger.error(f'ICANN WHOIS gave no response for url: `{self.url}`')
-            time.sleep(3)
+            time.sleep(DELAY_SEC)
             return self.owner
 
         while ATTEMPTS > 0:
@@ -363,6 +367,88 @@ class UniformResourceLocator():
                         )
         return result
     
+
+
+
+    def _get_artifact(self, session):
+        """Get url artifact and verify self.url_type is correct, then populate self.file_str if possible."""
+        resp = None
+        try:
+            resp = session.get(self.url)
+            self.logger.info(f'request made to url {self.url}')
+            if resp.status_code == 200:
+                content_type = resp.headers.get('content-type')
+                self.file_type = content_type
+                if 'text/html' in content_type:
+                    if self.url_type != 'html':
+                        self.logger.error('ERROR: `self.url_type` does not match content-type')  
+                        raise Exception
+                    if self.applyRequestsRenderJs:
+                        resp.html.render()
+                        txt = resp.html.text
+                    else:
+                        txt = resp.text
+                    if len(txt) < 100:
+                        self.logger.error('ERROR: HTML content length is insignificant')  
+                        raise Exception
+                    self.file_str = txt
+                elif 'application/pdf' in content_type:
+                    if self.url_type != 'pdf':
+                        self.logger.error('ERROR: `self.url_type` does not match content-type') 
+                        raise Exception
+                    bytes = resp.content
+                    if len(bytes) < 100:
+                        self.logger.error('ERROR: PDF content length is insignificant')  
+                        raise Exception
+                    self.file_str = bytes        #output as bytes for binary file (PDF file, audio, image, etc.)
+                else:
+                    self.logger.error(f'ERROR: unaddressed content-type: {content_type}')
+                    raise Exception
+            else:
+                self.logger.error(f'ERROR: when requesting url, got status-code: {resp.status_code}')
+                raise Exception
+        except Exception:
+            self.logger.error(f'ERROR: in request for url: {self.url}')
+        return resp
+
+    def _parse_artifact_from_suffix(self, resp):
+        """Parese file and provision file attributes."""
+        result = ''
+        #html
+        if resp and self.url_type == 'html':
+            try: 
+                soup = bs4.BeautifulSoup(self.file_str, 'lxml')
+                if soup:
+                    result = 'html'
+                    self.file_format = result
+                    self.file_document = soup
+            except:
+                self.logger.error(f'ERROR: file for url {self.url} is invalid HTML')
+                result = None
+        #pdf
+        elif resp and self.url_type == 'pdf':
+            try:
+                file_stream = io.BytesIO(self.file_str)
+                pdf_file = pypdf.PdfReader(file_stream)     #purpose:to validate pdf format
+                if pdf_file:
+                    result = 'pdf'
+                    self.file_format = result
+                    self.file_document = pdf_file
+                else:
+                    raise Exception
+            except Exception:    #pypdf.errors.PdfReadError:
+                self.logger.error(f'ERROR: file for url {resp.url} is invalid PDF')
+                result = None
+        #if no url (no file)
+        else:
+            result = None
+            self.file_format = result
+            self.file_document = result
+        size_in_mb = int( sys.getsizeof(self.file_document) )  * 1e-6
+        self.file_size_mb = round(size_in_mb, ndigits=3)
+        return result
+
+
     def get_file_artifact_(self):
         """Determine if url is page, file, data, etc., then populate the
         artifact and associated attributes.
@@ -378,89 +464,13 @@ class UniformResourceLocator():
         note: Failing to parse the file will provision with a None.  This is used
         over empty string ('') to document that parsing was attempted.
         """
-        def _get_artifact():
-            """Get url artifact and verify self.url_type is correct, then populate self.file_str if possible."""
-            resp = None
-            try:
-                session = HTMLSession()
-                resp = session.get(self.url)
-                self.logger.info(f'request made to url {self.url}')
-                if resp.status_code == 200:
-                    content_type = resp.headers.get('content-type')
-                    self.file_type = content_type
-                    if 'text/html' in content_type:
-                        if self.url_type != 'html':
-                            self.logger.error('ERROR: `self.url_type` does not match content-type')  
-                            raise Exception
-                        if self.applyRequestsRenderJs:
-                            resp.html.render()
-                            txt = resp.html.text
-                        else:
-                            txt = resp.text
-                        if len(txt) < 100:
-                            self.logger.error('ERROR: HTML content length is insignificant')  
-                            raise Exception
-                        self.file_str = txt
-                    elif 'application/pdf' in content_type:
-                        if self.url_type != 'pdf':
-                            self.logger.error('ERROR: `self.url_type` does not match content-type') 
-                            raise Exception
-                        bytes = resp.content
-                        if len(bytes) < 100:
-                            self.logger.error('ERROR: PDF content length is insignificant')  
-                            raise Exception
-                        self.file_str = bytes        #output as bytes for binary file (PDF file, audio, image, etc.)
-                    else:
-                        self.logger.error(f'ERROR: unaddressed content-type: {content_type}')
-                        raise Exception
-                else:
-                    self.logger.error(f'ERROR: when requesting url, got status-code: {resp.status_code}')
-                    raise Exception
-            except Exception:
-                self.logger.error(f'ERROR: in request for url: {self.url}')
-            return resp
-
-        def _parse_artifact_from_suffix(resp):
-            """Parese file and provision file attributes."""
-            result = ''
-            #html
-            if resp and self.url_type == 'html':
-                try: 
-                    soup = bs4.BeautifulSoup(self.file_str, 'html.parser')
-                    if soup:
-                        result = 'html'
-                        self.file_format = result
-                        self.file_document = soup
-                except:
-                    self.logger.error(f'ERROR: file for url {self.url} is invalid HTML')
-                    result = None
-            #pdf
-            elif resp and self.url_type == 'pdf':
-                try:
-                    file_stream = io.BytesIO(self.file_str)
-                    pdf_file = pypdf.PdfReader(file_stream)     #purpose:to validate pdf format
-                    if pdf_file:
-                        result = 'pdf'
-                        self.file_format = result
-                        self.file_document = pdf_file
-                    else:
-                        raise Exception
-                except Exception:    #pypdf.errors.PdfReadError:
-                    self.logger.error(f'ERROR: file for url {resp.url} is invalid PDF')
-                    result = None
-            #if no url (no file)
-            else:
-                result = None
-                self.file_format = result
-                self.file_document = result
-            size_in_mb = int( sys.getsizeof(self.file_document) )  * 1e-6
-            self.file_size_mb = round(size_in_mb, ndigits=3)
-            return result
         
-        #workflow
         result = ''
-        resp = _get_artifact()
-        result = _parse_artifact_from_suffix(resp)
+        arg0 = "--no-sandbox"
+        arg1 = f"--user-agent={ua.random}"
+        session = HTMLSession(browser_args=[arg0, arg1])
+        resp = self._get_artifact(session)
+        result = self._parse_artifact_from_suffix(resp)
         time.sleep(1)
         return result
     
@@ -507,7 +517,7 @@ class UniformResourceLocator():
 
         return hrefs
 
-    def get_visible_text_(self):
+    def get_visible_text_(self, file_document=None):
         """Get visible text from html.
 
         ref: https://stackoverflow.com/questions/1936466/how-to-scrape-only-visible-webpage-text-with-beautifulsoup
@@ -518,12 +528,30 @@ class UniformResourceLocator():
             if isinstance(element, bs4.element.Comment):
                 return False
             return True
+        
+        def remove_html_tags(text):
+            clean = re.sub(r'<.*?>', '', text)
+            return clean
+        
+        def remove_unicode(text):
+            return re.sub(r'[^\x00-\x7F]+', '', text)
+        
+        def remove_non_natural_language_chars(text):
+            remove_chars = "".join(chr(i) for i in range(256) if not chr(i).isalnum() and not chr(i).isspace())
+            return text.translate(str.maketrans("", "", remove_chars))
 
-        if self.file_document and self.url_type == 'html':
+        if file_document:
+            soup = file_document
+        elif self.file_document and self.url_type == 'html':
             soup = self.file_document
-            texts = soup.findAll(text=True)
-            visible_texts = filter(tag_visible, texts)
-            self.file_visible_text = visible_texts
-            return u" ".join(t.strip() for t in visible_texts)
         else:
             return False
+        texts = soup.findAll(text=True)
+        text_filter = filter(tag_visible, texts)
+        visible_text = u" ".join(t.strip() for t in text_filter )
+        text_no_tags = remove_html_tags(visible_text)
+        clean_text = remove_unicode(text_no_tags)
+        #natural_language = remove_non_natural_language_chars(clean_text)
+        self.file_visible_text = clean_text
+        return clean_text
+        

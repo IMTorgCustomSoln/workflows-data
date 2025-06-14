@@ -101,6 +101,9 @@ def output_to_pdf(dialogue, results, filename=None, output_type='file'):
 import textwrap
 from fpdf import FPDF
 
+def split_string(s, n):
+    return [s[i:i+n] for i in range(0, len(s), n)]
+
 def text_to_pdf(text):
     """Convert text to PDF object.
     
@@ -121,14 +124,16 @@ def text_to_pdf(text):
     if '\n' in text:
         splitted = text.split('\n')
     else:
-        splitted = text
+        #splitted = text
+        splitted = [text]
 
     for line in splitted:
         try:
             lines = textwrap.wrap(line, width_text)
         except Exception as e:
             print(e)
-            lines = [line[:int(width_text)]]
+            #lines = [line[:int(width_text)]]
+            lines = split_string(line, int(width_text))
 
         if len(lines) == 0:
             pdf.ln()
